@@ -4,6 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex">
+
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '634469765867935');
+  fbq('track', 'PageView');
+  fbq('track', 'ViewContent', {
+    content_name: 'Recruiting-Report 2026 Tiefbau Download',
+    content_category: 'Report-Download',
+    landingpage: 'recruiting-report-2026-tiefbau-download'
+  });
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=634469765867935&ev=PageView&noscript=1"/></noscript>
+  <!-- End Meta Pixel Code -->
+
   <title>Download – Recruiting-Report 2026 (Straßen- &amp; Tiefbau) | GreenCareers</title>
   <meta name="description" content="Ihr Recruiting-Report 2026 ist bereit zum Download.">
   <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
@@ -915,6 +938,16 @@
         dlBtn.disabled = true;
         if (dlText) dlText.textContent = 'Download wird vorbereitet\u2026';
 
+        // Meta Pixel: PDF-Download-Click
+        try {
+          if (typeof fbq === 'function') {
+            fbq('trackCustom', 'Report_Downloaded', {
+              content_name: 'Recruiting-Report 2026 Tiefbau PDF',
+              landingpage: 'recruiting-report-2026-tiefbau-download'
+            });
+          }
+        } catch(e) { /* silent */ }
+
         try {
           const res = await fetch(PDF_URL);
           if (!res.ok) throw new Error('PDF fetch failed: ' + res.status);
@@ -1012,6 +1045,21 @@
     // === TERMIN-FORMULAR ===
     // *** Make-Webhook-URL hier eintragen (kann derselbe wie LP-Webhook sein, dann mit "source" filtern) ***
     const TERMIN_WEBHOOK_URL = 'https://hook.eu1.make.com/7fih1kjt5kvufw74j74vvviwn810wf9p';
+    const TIEFBAU_LP_ID = 'recruiting-report-2026-tiefbau';
+
+    // Tracking-Params: localStorage (von LP-Visit) + URL-Override (falls vorhanden)
+    let terminTrackingParams = { utm_source:'', utm_medium:'', utm_campaign:'', utm_content:'', utm_term:'', fbclid:'', gclid:'' };
+    try {
+      const stored = localStorage.getItem('gc_tracking_' + TIEFBAU_LP_ID);
+      if (stored) terminTrackingParams = { ...terminTrackingParams, ...JSON.parse(stored) };
+    } catch(e) {}
+    const terminUrlParams = new URLSearchParams(window.location.search);
+    ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid','gclid'].forEach(k => {
+      const v = terminUrlParams.get(k);
+      if (v) terminTrackingParams[k] = v;
+    });
+    let terminSessionId = '';
+    try { terminSessionId = localStorage.getItem('gc_quiz_session_' + TIEFBAU_LP_ID) || ''; } catch(e) {}
 
     const terminForm = document.getElementById('termin-form');
     if (terminForm) {
@@ -1045,11 +1093,19 @@
           unternehmen: document.getElementById('t-unternehmen').value.trim(),
           phone: document.getElementById('t-phone').value.trim(),
           email: document.getElementById('t-email').value.trim(),
-          mitarbeiter: document.getElementById('t-mitarbeiter').value,
+          mitarbeiter_range: document.getElementById('t-mitarbeiter').value,
           herausforderung: document.getElementById('t-herausforderung').value.trim(),
           source: 'download-page-termin-anfrage-tiefbau',
           timestamp: new Date().toISOString(),
-          page_url: window.location.href
+          page_url: window.location.href,
+          session_id: terminSessionId,
+          utm_source:   terminTrackingParams.utm_source,
+          utm_medium:   terminTrackingParams.utm_medium,
+          utm_campaign: terminTrackingParams.utm_campaign,
+          utm_content:  terminTrackingParams.utm_content,
+          utm_term:     terminTrackingParams.utm_term,
+          fbclid:       terminTrackingParams.fbclid,
+          gclid:        terminTrackingParams.gclid
         };
 
         try {
