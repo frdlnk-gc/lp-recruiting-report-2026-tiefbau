@@ -12,6 +12,24 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '634469765867935');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=634469765867935&ev=PageView&noscript=1"/></noscript>
+  <!-- End Meta Pixel Code -->
+
   <script>
     var lpTurnstileToken = '';
     function onLpTurnstileSuccess(token) { lpTurnstileToken = token; }
@@ -1635,9 +1653,9 @@
       }
     } catch(e) { sessionId = uuidv4(); }
 
-    // URL-Tracking-Parameter
+    // URL-Tracking-Parameter (mit localStorage-Persistenz f\u00fcr cross-page)
     const urlParams = new URLSearchParams(window.location.search);
-    const trackingParams = {
+    let trackingParams = {
       utm_source:   urlParams.get('utm_source')   || '',
       utm_medium:   urlParams.get('utm_medium')   || '',
       utm_campaign: urlParams.get('utm_campaign') || '',
@@ -1646,6 +1664,17 @@
       fbclid:       urlParams.get('fbclid')       || '',
       gclid:        urlParams.get('gclid')        || ''
     };
+    // Falls neue UTMs aus URL kommen \u2192 in localStorage persistieren
+    // Falls nicht \u2192 alte aus localStorage holen (z.B. wenn User per Direkt-Link reinkommt nach 1. Besuch)
+    try {
+      const hasFreshUtm = Object.values(trackingParams).some(v => v);
+      if (hasFreshUtm) {
+        localStorage.setItem('gc_tracking_' + LANDINGPAGE_ID, JSON.stringify(trackingParams));
+      } else {
+        const stored = localStorage.getItem('gc_tracking_' + LANDINGPAGE_ID);
+        if (stored) trackingParams = JSON.parse(stored);
+      }
+    } catch(e) {}
 
     // Funnel-Event ans Dashboard (fire-and-forget)
     function trackFunnelEvent(eventType, slideId) {
