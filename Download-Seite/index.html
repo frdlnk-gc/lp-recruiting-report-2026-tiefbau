@@ -12,11 +12,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <script>
-    var terminTurnstileToken = '';
-    function onTerminTurnstileSuccess(token) { terminTurnstileToken = token; }
-  </script>
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <style>
     :root {
       /* === TIEFBAU FARBSYSTEM === */
@@ -871,8 +866,6 @@
               <label for="t-privacy">Ich akzeptiere die <a href="https://www.green-careers.de/datenschutz" target="_blank" rel="noopener">Datenschutzerkl&auml;rung</a> und bin einverstanden, kontaktiert zu werden.</label>
             </div>
 
-            <div class="cf-turnstile" data-sitekey="0x4AAAAAAADBMRHCv_JYxMJDl" data-callback="onTerminTurnstileSuccess" data-theme="dark" style="margin-top:14px;"></div>
-
             <button type="submit" class="termin-submit">
               Kostenloses Strategie-Gespr&auml;ch anfragen &rarr;
             </button>
@@ -1020,8 +1013,6 @@
     // *** Make-Webhook-URL hier eintragen (kann derselbe wie LP-Webhook sein, dann mit "source" filtern) ***
     const TERMIN_WEBHOOK_URL = 'https://hook.eu1.make.com/7fih1kjt5kvufw74j74vvviwn810wf9p';
 
-    // terminTurnstileToken + onTerminTurnstileSuccess sind im <head> definiert (vor Turnstile-Script)
-
     const terminForm = document.getElementById('termin-form');
     if (terminForm) {
       terminForm.addEventListener('submit', async (e) => {
@@ -1043,13 +1034,6 @@
         if (!document.getElementById('t-privacy').checked) valid = false;
         if (!valid) return;
 
-        // Cloudflare Turnstile: Token muss vorhanden sein
-        if (!terminTurnstileToken) {
-          errEl.textContent = 'Bitte warten Sie kurz auf die Sicherheitspr\u00fcfung.';
-          errEl.style.display = 'block';
-          return;
-        }
-
         const btn = terminForm.querySelector('button[type="submit"]');
         const origText = btn.textContent;
         btn.textContent = 'Wird gesendet\u2026';
@@ -1065,8 +1049,7 @@
           herausforderung: document.getElementById('t-herausforderung').value.trim(),
           source: 'download-page-termin-anfrage-tiefbau',
           timestamp: new Date().toISOString(),
-          page_url: window.location.href,
-          'cf-turnstile-response': terminTurnstileToken
+          page_url: window.location.href
         };
 
         try {
@@ -1083,16 +1066,12 @@
           }
           terminForm.style.display = 'none';
           document.getElementById('termin-success').classList.add('active');
-          terminTurnstileToken = '';
         } catch (err) {
           console.error(err);
           btn.textContent = origText;
           btn.disabled = false;
           errEl.textContent = 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.';
           errEl.style.display = 'block';
-          // Turnstile-Widget zur\u00fccksetzen, damit der User es neu l\u00f6sen kann
-          terminTurnstileToken = '';
-          if (window.turnstile) { try { window.turnstile.reset(); } catch(e) {} }
         }
       });
     }
