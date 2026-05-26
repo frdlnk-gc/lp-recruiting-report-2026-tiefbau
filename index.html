@@ -1084,6 +1084,135 @@
     </div>
   </div>
 
+  <!-- FORM -->
+  <section class="section-form" id="formular">
+    <div class="container">
+      <div class="form-wrapper reveal-scale">
+
+        <!-- Quiz-Header -->
+        <div class="form-header" id="quiz-header">
+          <div class="section-label" style="justify-content:center;"><span class="section-label-line"></span> Recruiting-Report 2026</div>
+          <h2 id="quiz-h2">Kostenloser 32-Seiten-Report &mdash; in 60&nbsp;Sek. anfordern.</h2>
+          <p id="quiz-h2-sub">2 schnelle Fragen, dann erhalten Sie den Report per E-Mail. Keine Verpflichtung.</p>
+        </div>
+
+        <!-- Progress -->
+        <div class="quiz-progress" id="quiz-progress">
+          <div class="quiz-progress-label" id="quiz-progress-label">Schritt 1 von 5</div>
+          <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress-fill" style="width:20%"></div></div>
+        </div>
+
+        <form id="lead-form" novalidate autocomplete="on" onsubmit="return false;">
+
+          <!-- ===== STEP 1 / 5 — Position ===== -->
+          <div class="quiz-slide is-active" data-slide="1">
+            <h3 class="quiz-question">Welche Position suchen Sie aktuell?</h3>
+            <p class="quiz-subtext">Damit wir den Report mit den richtigen Benchmarks f&uuml;r Sie aufbereiten.</p>
+            <div class="quiz-options">
+              <button type="button" class="quiz-option" data-field="position" data-value="tiefbauer">Tiefbauer / Stra&szlig;enbauer</button>
+              <button type="button" class="quiz-option" data-field="position" data-value="polier">Polier</button>
+              <button type="button" class="quiz-option" data-field="position" data-value="bauleiter">Bauleiter Tiefbau</button>
+              <button type="button" class="quiz-option" data-field="position" data-value="kanalbauer">Kanal- &amp; Rohrleitungsbauer / Asphaltbauer</button>
+              <button type="button" class="quiz-option" data-field="position" data-value="mehrere">Mehrere Positionen gleichzeitig</button>
+            </div>
+          </div>
+
+          <!-- ===== STEP 2 / 5 — Mitarbeiterzahl ===== -->
+          <div class="quiz-slide" data-slide="2">
+            <h3 class="quiz-question">Wie viele Mitarbeiter besch&auml;ftigt Ihr Betrieb?</h3>
+            <p class="quiz-subtext">F&uuml;r passende Strategie-Empfehlungen je nach Betriebsgr&ouml;&szlig;e.</p>
+            <div class="quiz-options">
+              <button type="button" class="quiz-option" data-field="mitarbeiter_range" data-value="0-14">Bis 14 Mitarbeiter</button>
+              <button type="button" class="quiz-option" data-field="mitarbeiter_range" data-value="15-40">15&ndash;40 Mitarbeiter</button>
+              <button type="button" class="quiz-option" data-field="mitarbeiter_range" data-value="41-100">41&ndash;100 Mitarbeiter</button>
+              <button type="button" class="quiz-option" data-field="mitarbeiter_range" data-value="101-250">101&ndash;250 Mitarbeiter</button>
+              <button type="button" class="quiz-option" data-field="mitarbeiter_range" data-value="250+">&Uuml;ber 250 Mitarbeiter</button>
+            </div>
+            <button type="button" class="quiz-back" data-back="1">&larr; Zur&uuml;ck</button>
+          </div>
+
+          <!-- ===== STEP 3 / 5 — E-Mail-Gate ===== -->
+          <div class="quiz-slide" data-slide="3">
+            <h3 class="quiz-question" id="quiz-step3-headline">Sehr gut. Wohin senden wir Ihren Report?</h3>
+            <p class="quiz-subtext" id="quiz-step3-sub">Tragen Sie Ihre gesch&auml;ftliche E-Mail ein &mdash; der Report kommt innerhalb 5&nbsp;Min. in Ihr Postfach.</p>
+            <div class="quiz-input-group">
+              <div class="quiz-input-wrap">
+                <svg class="quiz-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <input type="email" class="quiz-input" id="email" name="email" placeholder="ihre@firma.de" autocomplete="email" autocapitalize="none" spellcheck="false" inputmode="email">
+              </div>
+            </div>
+            <button type="button" class="quiz-cta" data-next-from="3">Weiter &rarr;</button>
+            <div class="quiz-error-msg" id="quiz-step3-error">Bitte tragen Sie eine g&uuml;ltige E-Mail-Adresse ein.</div>
+            <button type="button" class="quiz-back" data-back="2">&larr; Zur&uuml;ck</button>
+          </div>
+
+          <!-- ===== STEP 4 / 5 — Name + (progressive) Firma ===== -->
+          <div class="quiz-slide" data-slide="4">
+            <h3 class="quiz-question">F&uuml;r welchen Betrieb erstellen wir den Report?</h3>
+            <p class="quiz-subtext">Damit wir den Report f&uuml;r Sie pers&ouml;nlich anpassen k&ouml;nnen.</p>
+
+            <!-- Sub-Step 4a: Name -->
+            <div class="quiz-input-group" data-substep="name">
+              <div class="quiz-input-wrap">
+                <svg class="quiz-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <input type="text" class="quiz-input" id="fullname" placeholder="Vor- und Nachname" autocomplete="name" autocapitalize="words" spellcheck="false">
+              </div>
+            </div>
+
+            <!-- Sub-Step 4b: Firma (initial hidden) -->
+            <div class="quiz-input-group" data-substep="firma" style="display:none;">
+              <div class="quiz-input-wrap">
+                <svg class="quiz-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg>
+                <input type="text" class="quiz-input" id="unternehmen" name="unternehmen" placeholder="Name Ihres Betriebs" autocomplete="organization" autocapitalize="words" spellcheck="false">
+              </div>
+            </div>
+
+            <button type="button" class="quiz-cta" id="quiz-step4-cta" disabled>Weiter &rarr;</button>
+            <div class="quiz-error-msg" id="quiz-step4-error">Bitte tragen Sie Vor-, Nachnamen und Firmennamen ein.</div>
+            <button type="button" class="quiz-back" data-back="3">&larr; Zur&uuml;ck</button>
+          </div>
+
+          <!-- ===== STEP 5 / 5 — Telefon + DSGVO + Submit ===== -->
+          <div class="quiz-slide" data-slide="5">
+            <h3 class="quiz-question">Letzter Schritt &mdash; Ihre Telefonnummer.</h3>
+            <p class="quiz-subtext">Damit unser Recruiting-Experte Sie nach dem Report kurz erreichen kann (kein Spam, kein Verkaufsanruf &mdash; nur falls Sie R&uuml;ckfragen haben).</p>
+
+            <div class="quiz-input-group">
+              <div class="quiz-phone-wrap">
+                <span class="quiz-phone-flag">🇩🇪 +49</span>
+                <input type="tel" class="quiz-input" id="phone" name="phone" placeholder="170 1234567" autocomplete="tel" inputmode="tel">
+              </div>
+            </div>
+
+            <div class="quiz-privacy">
+              <input type="checkbox" id="privacy" name="privacy">
+              <label for="privacy">Ich stimme der <a href="https://www.green-careers.de/datenschutz" target="_blank" rel="noopener">Datenschutzerkl&auml;rung</a> zu und bin einverstanden, von GreenCareers kontaktiert zu werden.</label>
+            </div>
+
+            <button type="button" class="quiz-cta" id="quiz-final-submit" disabled>Report jetzt sichern &rarr;</button>
+            <div class="quiz-error-msg" id="quiz-step5-error">Bitte Telefonnummer eintragen und Datenschutz best&auml;tigen.</div>
+
+            <div class="quiz-trust-row">
+              <span><span class="quiz-trust-dot"></span> Sichere SSL-Verschl&uuml;sselung</span>
+              <span><span class="quiz-trust-dot"></span> DSGVO-konform</span>
+              <span><span class="quiz-trust-dot"></span> Kein Spam, kein Newsletter</span>
+            </div>
+            <button type="button" class="quiz-back" data-back="4">&larr; Zur&uuml;ck</button>
+          </div>
+
+        </form>
+
+        <!-- Success-State -->
+        <div class="form-success" id="form-success">
+          <div class="form-success-icon">&#9989;</div>
+          <h3>Perfekt &ndash; Ihr Report ist unterwegs!</h3>
+          <p>Sie erhalten den Recruiting-Report 2026 in wenigen Minuten per E-Mail. Pr&uuml;fen Sie bitte auch Ihren Spam-Ordner.</p>
+          <p style="margin-top:16px;font-size:0.82rem;color:var(--lime-green);font-weight:700;">Unser Team meldet sich innerhalb der n&auml;chsten 24&ndash;48&nbsp;h kurz bei Ihnen, falls Sie R&uuml;ckfragen zum Report haben.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- PROBLEM -->
   <section class="section-problem">
     <div class="container">
@@ -1319,134 +1448,6 @@
     </div>
   </section>
 
-  <!-- FORM -->
-  <section class="section-form" id="formular">
-    <div class="container">
-      <div class="form-wrapper reveal-scale">
-
-        <!-- Quiz-Header -->
-        <div class="form-header" id="quiz-header">
-          <div class="section-label" style="justify-content:center;"><span class="section-label-line"></span> Recruiting-Report 2026</div>
-          <h2 id="quiz-h2">Kostenloser 32-Seiten-Report &mdash; in 60&nbsp;Sek. anfordern.</h2>
-          <p id="quiz-h2-sub">2 schnelle Fragen, dann erhalten Sie den Report per E-Mail. Keine Verpflichtung.</p>
-        </div>
-
-        <!-- Progress -->
-        <div class="quiz-progress" id="quiz-progress">
-          <div class="quiz-progress-label" id="quiz-progress-label">Schritt 1 von 5</div>
-          <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress-fill" style="width:20%"></div></div>
-        </div>
-
-        <form id="lead-form" novalidate autocomplete="on" onsubmit="return false;">
-
-          <!-- ===== STEP 1 / 5 — Position ===== -->
-          <div class="quiz-slide is-active" data-slide="1">
-            <h3 class="quiz-question">Welche Position suchen Sie aktuell?</h3>
-            <p class="quiz-subtext">Damit wir den Report mit den richtigen Benchmarks f&uuml;r Sie aufbereiten.</p>
-            <div class="quiz-options">
-              <button type="button" class="quiz-option" data-field="position" data-value="tiefbauer">Tiefbauer / Stra&szlig;enbauer</button>
-              <button type="button" class="quiz-option" data-field="position" data-value="polier">Polier</button>
-              <button type="button" class="quiz-option" data-field="position" data-value="bauleiter">Bauleiter Tiefbau</button>
-              <button type="button" class="quiz-option" data-field="position" data-value="kanalbauer">Kanal- &amp; Rohrleitungsbauer / Asphaltbauer</button>
-              <button type="button" class="quiz-option" data-field="position" data-value="mehrere">Mehrere Positionen gleichzeitig</button>
-            </div>
-          </div>
-
-          <!-- ===== STEP 2 / 5 — Mitarbeiterzahl ===== -->
-          <div class="quiz-slide" data-slide="2">
-            <h3 class="quiz-question">Wie viele Mitarbeiter besch&auml;ftigt Ihr Betrieb?</h3>
-            <p class="quiz-subtext">F&uuml;r passende Strategie-Empfehlungen je nach Betriebsgr&ouml;&szlig;e.</p>
-            <div class="quiz-options">
-              <button type="button" class="quiz-option" data-field="mitarbeiter_range" data-value="0-14">Bis 14 Mitarbeiter</button>
-              <button type="button" class="quiz-option" data-field="mitarbeiter_range" data-value="15-40">15&ndash;40 Mitarbeiter</button>
-              <button type="button" class="quiz-option" data-field="mitarbeiter_range" data-value="41-100">41&ndash;100 Mitarbeiter</button>
-              <button type="button" class="quiz-option" data-field="mitarbeiter_range" data-value="101-250">101&ndash;250 Mitarbeiter</button>
-              <button type="button" class="quiz-option" data-field="mitarbeiter_range" data-value="250+">&Uuml;ber 250 Mitarbeiter</button>
-            </div>
-            <button type="button" class="quiz-back" data-back="1">&larr; Zur&uuml;ck</button>
-          </div>
-
-          <!-- ===== STEP 3 / 5 — E-Mail-Gate ===== -->
-          <div class="quiz-slide" data-slide="3">
-            <h3 class="quiz-question" id="quiz-step3-headline">Sehr gut. Wohin senden wir Ihren Report?</h3>
-            <p class="quiz-subtext" id="quiz-step3-sub">Tragen Sie Ihre gesch&auml;ftliche E-Mail ein &mdash; der Report kommt innerhalb 5&nbsp;Min. in Ihr Postfach.</p>
-            <div class="quiz-input-group">
-              <div class="quiz-input-wrap">
-                <svg class="quiz-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                <input type="email" class="quiz-input" id="email" name="email" placeholder="ihre@firma.de" autocomplete="email" autocapitalize="none" spellcheck="false" inputmode="email">
-              </div>
-            </div>
-            <button type="button" class="quiz-cta" data-next-from="3">Weiter &rarr;</button>
-            <div class="quiz-error-msg" id="quiz-step3-error">Bitte tragen Sie eine g&uuml;ltige E-Mail-Adresse ein.</div>
-            <button type="button" class="quiz-back" data-back="2">&larr; Zur&uuml;ck</button>
-          </div>
-
-          <!-- ===== STEP 4 / 5 — Name + (progressive) Firma ===== -->
-          <div class="quiz-slide" data-slide="4">
-            <h3 class="quiz-question">F&uuml;r welchen Betrieb erstellen wir den Report?</h3>
-            <p class="quiz-subtext">Damit wir den Report f&uuml;r Sie pers&ouml;nlich anpassen k&ouml;nnen.</p>
-
-            <!-- Sub-Step 4a: Name -->
-            <div class="quiz-input-group" data-substep="name">
-              <div class="quiz-input-wrap">
-                <svg class="quiz-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                <input type="text" class="quiz-input" id="fullname" placeholder="Vor- und Nachname" autocomplete="name" autocapitalize="words" spellcheck="false">
-              </div>
-            </div>
-
-            <!-- Sub-Step 4b: Firma (initial hidden) -->
-            <div class="quiz-input-group" data-substep="firma" style="display:none;">
-              <div class="quiz-input-wrap">
-                <svg class="quiz-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg>
-                <input type="text" class="quiz-input" id="unternehmen" name="unternehmen" placeholder="Name Ihres Betriebs" autocomplete="organization" autocapitalize="words" spellcheck="false">
-              </div>
-            </div>
-
-            <button type="button" class="quiz-cta" id="quiz-step4-cta" disabled>Weiter &rarr;</button>
-            <div class="quiz-error-msg" id="quiz-step4-error">Bitte tragen Sie Vor-, Nachnamen und Firmennamen ein.</div>
-            <button type="button" class="quiz-back" data-back="3">&larr; Zur&uuml;ck</button>
-          </div>
-
-          <!-- ===== STEP 5 / 5 — Telefon + DSGVO + Submit ===== -->
-          <div class="quiz-slide" data-slide="5">
-            <h3 class="quiz-question">Letzter Schritt &mdash; Ihre Telefonnummer.</h3>
-            <p class="quiz-subtext">Damit unser Recruiting-Experte Sie nach dem Report kurz erreichen kann (kein Spam, kein Verkaufsanruf &mdash; nur falls Sie R&uuml;ckfragen haben).</p>
-
-            <div class="quiz-input-group">
-              <div class="quiz-phone-wrap">
-                <span class="quiz-phone-flag">🇩🇪 +49</span>
-                <input type="tel" class="quiz-input" id="phone" name="phone" placeholder="170 1234567" autocomplete="tel" inputmode="tel">
-              </div>
-            </div>
-
-            <div class="quiz-privacy">
-              <input type="checkbox" id="privacy" name="privacy">
-              <label for="privacy">Ich stimme der <a href="https://www.green-careers.de/datenschutz" target="_blank" rel="noopener">Datenschutzerkl&auml;rung</a> zu und bin einverstanden, von GreenCareers kontaktiert zu werden.</label>
-            </div>
-
-            <button type="button" class="quiz-cta" id="quiz-final-submit" disabled>Report jetzt sichern &rarr;</button>
-            <div class="quiz-error-msg" id="quiz-step5-error">Bitte Telefonnummer eintragen und Datenschutz best&auml;tigen.</div>
-
-            <div class="quiz-trust-row">
-              <span><span class="quiz-trust-dot"></span> Sichere SSL-Verschl&uuml;sselung</span>
-              <span><span class="quiz-trust-dot"></span> DSGVO-konform</span>
-              <span><span class="quiz-trust-dot"></span> Kein Spam, kein Newsletter</span>
-            </div>
-            <button type="button" class="quiz-back" data-back="4">&larr; Zur&uuml;ck</button>
-          </div>
-
-        </form>
-
-        <!-- Success-State -->
-        <div class="form-success" id="form-success">
-          <div class="form-success-icon">&#9989;</div>
-          <h3>Perfekt &ndash; Ihr Report ist unterwegs!</h3>
-          <p>Sie erhalten den Recruiting-Report 2026 in wenigen Minuten per E-Mail. Pr&uuml;fen Sie bitte auch Ihren Spam-Ordner.</p>
-          <p style="margin-top:16px;font-size:0.82rem;color:var(--lime-green);font-weight:700;">Unser Team meldet sich innerhalb der n&auml;chsten 24&ndash;48&nbsp;h kurz bei Ihnen, falls Sie R&uuml;ckfragen zum Report haben.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- FOOTER -->
   <footer>
