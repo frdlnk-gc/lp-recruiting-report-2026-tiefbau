@@ -1181,7 +1181,7 @@
             <div class="quiz-input-group" data-substep="firma" style="display:none;">
               <div class="quiz-input-wrap">
                 <svg class="quiz-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg>
-                <input type="text" class="quiz-input" id="unternehmen" name="unternehmen" placeholder="Name Ihres Betriebs" autocomplete="organization" autocapitalize="words" spellcheck="false">
+                <input type="text" class="quiz-input" id="unternehmen" name="unternehmen" placeholder="z. B. Müller Tiefbau GmbH" autocomplete="organization" autocapitalize="words" spellcheck="false">
               </div>
             </div>
 
@@ -1868,7 +1868,7 @@
 
     function evaluateStep4Enabled() {
       const hasName  = fullnameInput.value.trim().split(/\s+/).filter(Boolean).length >= 2;
-      const hasFirma = firmaInput.value.trim().length >= 2;
+      const hasFirma = /[A-Za-zÄÖÜäöüß]/.test(firmaInput.value) && firmaInput.value.trim().split(/[\s\-]+/).filter(w => w.length >= 2).length >= 2;
       step4CTA.disabled = !(hasName && hasFirma);
     }
 
@@ -1887,7 +1887,7 @@
     step4CTA.addEventListener('click', () => {
       const nameParts = fullnameInput.value.trim().split(/\s+/).filter(Boolean);
       if (nameParts.length < 2) { fullnameInput.classList.add('is-error'); step4Error.classList.add('active'); return; }
-      if (firmaInput.value.trim().length < 2) { firmaInput.classList.add('is-error'); step4Error.classList.add('active'); return; }
+      if (!(/[A-Za-zÄÖÜäöüß]/.test(firmaInput.value) && firmaInput.value.trim().split(/[\s\-]+/).filter(w => w.length >= 2).length >= 2)) { firmaInput.classList.add('is-error'); step4Error.classList.add('active'); return; }
       step4Error.classList.remove('active');
       answers.vorname     = nameParts[0];
       answers.nachname    = nameParts.slice(1).join(' ');
@@ -1917,8 +1917,11 @@
       if (phoneInput.value.trim().length < 6) { phoneInput.classList.add('is-error'); step5Error.classList.add('active'); return; }
       if (!privacyCheckbox.checked) { step5Error.classList.add('active'); return; }
 
-      let phone = phoneInput.value.trim();
-      if (!phone.startsWith('+')) phone = '+49 ' + phone.replace(/^0+/, '');
+      let digits = phoneInput.value.replace(/\D/g, '');
+      if (digits.startsWith('00')) digits = digits.slice(2);
+      else if (digits.startsWith('0')) digits = '49' + digits.slice(1);
+      else if (!digits.startsWith('49')) digits = '49' + digits;
+      let phone = '+' + digits;
       answers.phone = phone;
 
       const originalText = finalSubmit.textContent;
