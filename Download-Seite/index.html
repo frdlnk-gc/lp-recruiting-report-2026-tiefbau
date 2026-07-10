@@ -1061,6 +1061,93 @@
     let terminSessionId = '';
     try { terminSessionId = localStorage.getItem('gc_quiz_session_' + TIEFBAU_LP_ID) || ''; } catch(e) {}
 
+    // =====================================================
+    // META "Schedule"-EVENT (Pixel + CAPI mit Dedup)
+    // Terminanfrage = höchste Lead-Qualität vor QualifiedLead.
+    // Gleiche event_id für Pixel + Server-Event → Meta dedupliziert.
+    // =====================================================
+    const LEAD_EVENT_ENDPOINT = 'https://gc-tracking-dashboard.vercel.app/api/tracking/lead-event';
+
+    function uuidv4() {
+      if (window.crypto && window.crypto.randomUUID) return window.crypto.randomUUID();
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+        const r = Math.random() * 16 | 0;
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+    function getCookie(name) {
+      try {
+        const m = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+        return m ? decodeURIComponent(m.pop()) : '';
+      } catch(e) { return ''; }
+    }
+    function getScheduleEventId() {
+      const key = 'gc_eid_appointment_' + TIEFBAU_LP_ID;
+      try {
+        let id = localStorage.getItem(key);
+        if (!id) { id = uuidv4(); localStorage.setItem(key, id); }
+        return id;
+      } catch(e) { return uuidv4(); }
+    }
+
+    function sendScheduleEvent(payload) {
+      const eventId = getScheduleEventId();
+
+      // 1) Browser-Pixel
+      try {
+        if (typeof fbq === 'function') {
+          fbq('track', 'Schedule',
+            { content_name: 'Beratungsgespräch angefragt', landingpage: TIEFBAU_LP_ID },
+            { eventID: eventId });
+        }
+      } catch(e) {}
+
+      // 2) Server-Event ans Dashboard (CAPI "Schedule" + Lead-Zeile → 'appointment')
+      const fbc = getCookie('_fbc') ||
+        (terminTrackingParams.fbclid ? 'fb.1.' + Date.now() + '.' + terminTrackingParams.fbclid : '');
+      const body = {
+        stage: 'appointment',
+        event_id: eventId,
+        landingpage_id: TIEFBAU_LP_ID,
+        source_page: 'download-page-termin-anfrage-tiefbau',
+        session_id: terminSessionId || null,
+        email: payload.email,
+        vorname: payload.vorname,
+        nachname: payload.nachname,
+        unternehmen: payload.unternehmen,
+        phone: payload.phone,
+        mitarbeiter_range: payload.mitarbeiter_range || '',
+        herausforderung: payload.herausforderung || '',
+        utm_source:   terminTrackingParams.utm_source,
+        utm_medium:   terminTrackingParams.utm_medium,
+        utm_campaign: terminTrackingParams.utm_campaign,
+        utm_content:  terminTrackingParams.utm_content,
+        utm_term:     terminTrackingParams.utm_term,
+        fbclid:       terminTrackingParams.fbclid,
+        gclid:        terminTrackingParams.gclid,
+        fbp: getCookie('_fbp'),
+        fbc: fbc,
+        page_url: window.location.href,
+        referrer: document.referrer || '',
+        user_agent: navigator.userAgent
+      };
+      try {
+        const p = new URLSearchParams(window.location.search);
+        if (p.get('tracking_debug') === '1') body.dry_run = true;
+        if (p.get('test_capi')) body.test_event_code = p.get('test_capi');
+      } catch(e) {}
+      try {
+        fetch(LEAD_EVENT_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+          keepalive: true,
+          credentials: 'omit'
+        }).catch(() => {});
+      } catch(e) {}
+    }
+
     const terminForm = document.getElementById('termin-form');
     if (terminForm) {
       terminForm.addEventListener('submit', async (e) => {
@@ -1120,6 +1207,7 @@
             console.warn('Termin-Webhook nicht konfiguriert. Payload:', payload);
             await new Promise(r => setTimeout(r, 800));
           }
+          sendScheduleEvent(payload);
           terminForm.style.display = 'none';
           document.getElementById('termin-success').classList.add('active');
         } catch (err) {

@@ -1707,6 +1707,86 @@
       } catch(e) { /* silent */ }
     }
 
+    // =====================================================
+    // META-EVENT-TRACKING (Pixel + CAPI mit Dedup)
+    //
+    // Drei Qualitätsstufen, je Person genau einmal:
+    //   Lead                 → E-Mail eingetragen (Step 3)
+    //   CompleteRegistration → Formular vollständig abgesendet
+    //   Schedule             → Beratungstermin angefragt (Danke-Seite)
+    //
+    // Pixel (Browser) und CAPI (Server, via Dashboard-Endpoint)
+    // teilen sich pro Event dieselbe event_id → Meta dedupliziert.
+    // =====================================================
+    const LEAD_EVENT_ENDPOINT = 'https://gc-tracking-dashboard.vercel.app/api/tracking/lead-event';
+
+    function getCookie(name) {
+      try {
+        const m = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+        return m ? decodeURIComponent(m.pop()) : '';
+      } catch(e) { return ''; }
+    }
+    function getFbp() { return getCookie('_fbp'); }
+    function getFbc() {
+      const c = getCookie('_fbc');
+      if (c) return c;
+      // Fallback: aus fbclid rekonstruieren (Meta-Format fb.1.<ts>.<fbclid>)
+      if (trackingParams.fbclid) return 'fb.1.' + Date.now() + '.' + trackingParams.fbclid;
+      return '';
+    }
+
+    // Stabile event_id pro Stufe + Session (übersteht Reload → Meta dedupliziert)
+    function getEventId(stage) {
+      const key = 'gc_eid_' + stage + '_' + LANDINGPAGE_ID;
+      try {
+        let id = localStorage.getItem(key);
+        if (!id) {
+          id = uuidv4();
+          localStorage.setItem(key, id);
+        }
+        return id;
+      } catch(e) { return uuidv4(); }
+    }
+
+    // Server-Event ans Dashboard (sendet CAPI + legt/aktualisiert Lead in Supabase)
+    function sendLeadStageEvent(stage, eventId) {
+      const body = {
+        stage: stage,
+        event_id: eventId,
+        landingpage_id: LANDINGPAGE_ID,
+        session_id: sessionId,
+        email: answers.email,
+        vorname: answers.vorname || '',
+        nachname: answers.nachname || '',
+        unternehmen: answers.unternehmen || '',
+        phone: answers.phone || '',
+        position: answers.position || '',
+        mitarbeiter_range: answers.mitarbeiter_range || '',
+        ...trackingParams,
+        fbp: getFbp(),
+        fbc: getFbc(),
+        page_url: window.location.href,
+        referrer: document.referrer || '',
+        user_agent: navigator.userAgent
+      };
+      // Test-Support: ?tracking_debug=1 → Dry-Run (keine Writes/CAPI),
+      // ?test_capi=CODE → Events in Meta Test-Events-Tab
+      try {
+        const p = new URLSearchParams(window.location.search);
+        if (p.get('tracking_debug') === '1') body.dry_run = true;
+        if (p.get('test_capi')) body.test_event_code = p.get('test_capi');
+      } catch(e) {}
+      try {
+        fetch(LEAD_EVENT_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+          keepalive: true,
+          credentials: 'omit'
+        }).catch(() => { /* Tracking darf den Funnel nie brechen */ });
+      } catch(e) { /* silent */ }
+    }
+
     // LP-View beim Page-Load
     trackFunnelEvent('lp_view', null);
 
@@ -1844,11 +1924,22 @@
       step3Error.classList.remove('active');
       answers.email = email;
 
-      try {
-        if (typeof fbq === 'function') {
-          fbq('track', 'Lead', { content_name: 'Recruiting-Report E-Mail erhalten', landingpage: LANDINGPAGE_ID });
-        }
-      } catch(e) {}
+      // Stufe 1: "Lead" — E-Mail liegt vor. Pixel + CAPI mit gemeinsamer
+      // event_id (Dedup). Lead landet sofort in Supabase (lead_stage=
+      // email_only); schließt die Person nicht ab, meldet der Dashboard-
+      // Cron sie nach 30 Min in Slack → Lenny ruft an.
+      if (!window.__gcLeadFired) {
+        window.__gcLeadFired = true;
+        const leadEventId = getEventId('lead');
+        try {
+          if (typeof fbq === 'function') {
+            fbq('track', 'Lead',
+              { content_name: 'Recruiting-Report E-Mail erhalten', landingpage: LANDINGPAGE_ID },
+              { eventID: leadEventId });
+          }
+        } catch(e) {}
+        sendLeadStageEvent('lead', leadEventId);
+      }
 
       showSlide(4);
     });
@@ -1963,10 +2054,30 @@
         }
 
         trackFunnelEvent('submit_success', null);
+
+        // Stufe 2: "CompleteRegistration" — Formular vollständig
+        // (E-Mail + Name + Firma + Telefon). Pixel + CAPI mit gemeinsamer
+        // event_id; Dashboard stuft die Lead-Zeile auf 'complete' hoch.
+        const crEventId = getEventId('complete_registration');
         try {
           if (typeof fbq === 'function') {
-            fbq('track', 'CompleteRegistration', { content_name: 'Recruiting-Report angefordert', landingpage: LANDINGPAGE_ID });
+            fbq('track', 'CompleteRegistration',
+              { content_name: 'Recruiting-Report angefordert', landingpage: LANDINGPAGE_ID },
+              { eventID: crEventId });
           }
+        } catch(e) {}
+        sendLeadStageEvent('complete_registration', crEventId);
+
+        // Lead-Daten für Prefill des Termin-Formulars auf der
+        // Download-/Danke-Seite hinterlegen (gleiche Domain)
+        try {
+          localStorage.setItem('gc_lead_data_tiefbau', JSON.stringify({
+            vorname: answers.vorname,
+            nachname: answers.nachname,
+            unternehmen: answers.unternehmen,
+            email: answers.email,
+            phone: answers.phone
+          }));
         } catch(e) {}
 
         document.getElementById('lead-form').style.display = 'none';
