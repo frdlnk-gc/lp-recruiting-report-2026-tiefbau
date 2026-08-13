@@ -1153,12 +1153,7 @@
           <div class="quiz-slide" data-slide="3">
             <h3 class="quiz-question" id="quiz-step3-headline">Sehr gut. Wohin senden wir Ihren Report?</h3>
             <p class="quiz-subtext" id="quiz-step3-sub">Tragen Sie Ihre gesch&auml;ftliche E-Mail ein &mdash; der Report kommt innerhalb 5&nbsp;Min. in Ihr Postfach.</p>
-            <div class="quiz-input-group">
-              <div class="quiz-input-wrap">
-                <svg class="quiz-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                <input type="email" class="quiz-input" id="email" name="email" placeholder="ihre@firma.de" autocomplete="email" autocapitalize="none" spellcheck="false" inputmode="email">
-              </div>
-            </div>
+            <div data-tpl="tpl-fields-email"></div>
             <button type="button" class="quiz-cta" data-next-from="3">Weiter &rarr;</button>
             <div class="quiz-error-msg" id="quiz-step3-error">Bitte tragen Sie eine g&uuml;ltige E-Mail-Adresse ein.</div>
             <button type="button" class="quiz-back" data-back="2">&larr; Zur&uuml;ck</button>
@@ -1170,7 +1165,43 @@
             <p class="quiz-subtext">Damit wir den Report f&uuml;r Sie pers&ouml;nlich anpassen k&ouml;nnen.</p>
 
             <!-- Sub-Step 4a: Name -->
-            <div class="quiz-input-group" data-substep="name">
+            <div data-tpl="tpl-fields-name"></div>
+
+            <button type="button" class="quiz-cta" id="quiz-step4-cta" disabled>Weiter &rarr;</button>
+            <div class="quiz-error-msg" id="quiz-step4-error">Bitte tragen Sie Vor-, Nachnamen und Firmennamen ein.</div>
+            <button type="button" class="quiz-back" data-back="3">&larr; Zur&uuml;ck</button>
+          </div>
+
+          <!-- ===== STEP 5 / 5 — Telefon + DSGVO + Submit ===== -->
+          <div class="quiz-slide" data-slide="5">
+            <h3 class="quiz-question">Letzter Schritt &mdash; Ihre Telefonnummer.</h3>
+            <p class="quiz-subtext">Damit unser Recruiting-Experte Sie nach dem Report kurz erreichen kann (kein Spam, kein Verkaufsanruf &mdash; nur falls Sie R&uuml;ckfragen haben).</p>
+
+            <div data-tpl="tpl-fields-phone"></div>
+
+            <button type="button" class="quiz-cta" id="quiz-final-submit" disabled>Report jetzt sichern &rarr;</button>
+            <div class="quiz-error-msg" id="quiz-step5-error">Bitte Telefonnummer eintragen und Datenschutz best&auml;tigen.</div>
+
+            <div class="quiz-trust-row">
+              <span><span class="quiz-trust-dot"></span> Sichere SSL-Verschl&uuml;sselung</span>
+              <span><span class="quiz-trust-dot"></span> DSGVO-konform</span>
+              <span><span class="quiz-trust-dot"></span> Kein Spam, kein Newsletter</span>
+            </div>
+            <button type="button" class="quiz-back" data-back="4">&larr; Zur&uuml;ck</button>
+          </div>
+
+        </form>
+
+        
+        <!-- Kontaktfeld-Templates: Inhalte sind inert, bis mountContactFields()
+             sie bei der ersten Quiz-Interaktion einsetzt (Meta-IAB-Autoscroll-Fix). -->
+        <template id="tpl-fields-email"><div class="quiz-input-group">
+              <div class="quiz-input-wrap">
+                <svg class="quiz-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <input type="email" class="quiz-input" id="email" name="email" placeholder="ihre@firma.de" autocomplete="email" autocapitalize="none" spellcheck="false" inputmode="email">
+              </div>
+            </div></template>
+        <template id="tpl-fields-name"><div class="quiz-input-group" data-substep="name">
               <div class="quiz-input-wrap">
                 <svg class="quiz-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 <input type="text" class="quiz-input" id="fullname" placeholder="Vor- und Nachname" autocomplete="name" autocapitalize="words" spellcheck="false">
@@ -1185,17 +1216,8 @@
               </div>
             </div>
 
-            <button type="button" class="quiz-cta" id="quiz-step4-cta" disabled>Weiter &rarr;</button>
-            <div class="quiz-error-msg" id="quiz-step4-error">Bitte tragen Sie Vor-, Nachnamen und Firmennamen ein.</div>
-            <button type="button" class="quiz-back" data-back="3">&larr; Zur&uuml;ck</button>
-          </div>
-
-          <!-- ===== STEP 5 / 5 — Telefon + DSGVO + Submit ===== -->
-          <div class="quiz-slide" data-slide="5">
-            <h3 class="quiz-question">Letzter Schritt &mdash; Ihre Telefonnummer.</h3>
-            <p class="quiz-subtext">Damit unser Recruiting-Experte Sie nach dem Report kurz erreichen kann (kein Spam, kein Verkaufsanruf &mdash; nur falls Sie R&uuml;ckfragen haben).</p>
-
-            <div class="quiz-input-group">
+            </template>
+        <template id="tpl-fields-phone"><div class="quiz-input-group">
               <div class="quiz-phone-wrap">
                 <span class="quiz-phone-flag">🇩🇪 +49</span>
                 <input type="tel" class="quiz-input" id="phone" name="phone" placeholder="170 1234567" autocomplete="tel" inputmode="tel">
@@ -1207,18 +1229,7 @@
               <label for="privacy">Ich stimme der <a href="https://www.green-careers.de/datenschutz" target="_blank" rel="noopener">Datenschutzerkl&auml;rung</a> zu und bin einverstanden, von GreenCareers kontaktiert zu werden.</label>
             </div>
 
-            <button type="button" class="quiz-cta" id="quiz-final-submit" disabled>Report jetzt sichern &rarr;</button>
-            <div class="quiz-error-msg" id="quiz-step5-error">Bitte Telefonnummer eintragen und Datenschutz best&auml;tigen.</div>
-
-            <div class="quiz-trust-row">
-              <span><span class="quiz-trust-dot"></span> Sichere SSL-Verschl&uuml;sselung</span>
-              <span><span class="quiz-trust-dot"></span> DSGVO-konform</span>
-              <span><span class="quiz-trust-dot"></span> Kein Spam, kein Newsletter</span>
-            </div>
-            <button type="button" class="quiz-back" data-back="4">&larr; Zur&uuml;ck</button>
-          </div>
-
-        </form>
+            </template>
 
         <!-- Success-State -->
         <div class="form-success" id="form-success">
@@ -1818,6 +1829,7 @@
     const trackedSlides = new Set();
 
     function showSlide(slideNum) {
+      mountContactFields();
       slides.forEach(s => s.classList.remove('is-active'));
       const target = slides.find(s => s.dataset.slide === String(slideNum));
       if (target) target.classList.add('is-active');
@@ -1908,7 +1920,42 @@
       }
     }
 
-    const emailInput  = document.getElementById('email');
+    // Kontaktfelder erst bei Quiz-Interaktion ins DOM — der Meta-In-App-
+    // Browser (Instagram/Facebook) erkennt sonst schon beim Laden das
+    // Kontaktformular und scrollt automatisch zum Quiz (Autofill-Angebot).
+    let fieldsMounted = false;
+    let emailInput, fullnameInput, firmaSubstep, firmaInput, phoneInput, privacyCheckbox;
+
+    function mountContactFields() {
+      if (fieldsMounted) return;
+      fieldsMounted = true;
+      document.querySelectorAll('[data-tpl]').forEach(slot => {
+        const tpl = document.getElementById(slot.dataset.tpl);
+        if (tpl) slot.appendChild(tpl.content.cloneNode(true));
+      });
+      emailInput      = document.getElementById('email');
+      const s4        = slides.find(s => s.dataset.slide === '4');
+      fullnameInput   = s4.querySelector('#fullname');
+      firmaSubstep    = s4.querySelector('[data-substep="firma"]');
+      firmaInput      = s4.querySelector('#unternehmen');
+      const s5        = slides.find(s => s.dataset.slide === '5');
+      phoneInput      = s5.querySelector('#phone');
+      privacyCheckbox = s5.querySelector('#privacy');
+
+      emailInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); step3CTA.click(); }
+      });
+      fullnameInput.addEventListener('blur', revealFirma);
+      fullnameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); revealFirma(); } });
+      fullnameInput.addEventListener('input', evaluateStep4Enabled);
+      firmaInput.addEventListener('input', evaluateStep4Enabled);
+      phoneInput.addEventListener('input', evaluateStep5Enabled);
+      privacyCheckbox.addEventListener('change', evaluateStep5Enabled);
+      [emailInput, fullnameInput, firmaInput, phoneInput].forEach(el => {
+        el.addEventListener('input', () => el.classList.remove('is-error'));
+      });
+    }
+
     const step3Error  = document.getElementById('quiz-step3-error');
     const step3CTA    = document.querySelector('[data-next-from="3"]');
 
@@ -1943,17 +1990,10 @@
 
       showSlide(4);
     });
-    emailInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') { e.preventDefault(); step3CTA.click(); }
-    });
 
     // =====================================================
     // STEP 4 — Name → progressive Firma → Continue zu Step 5
     // =====================================================
-    const slide4 = slides.find(s => s.dataset.slide === '4');
-    const fullnameInput   = slide4.querySelector('#fullname');
-    const firmaSubstep    = slide4.querySelector('[data-substep="firma"]');
-    const firmaInput      = slide4.querySelector('#unternehmen');
     const step4CTA        = document.getElementById('quiz-step4-cta');
     const step4Error      = document.getElementById('quiz-step4-error');
 
@@ -1970,10 +2010,6 @@
         setTimeout(() => firmaInput.focus(), 100);
       }
     }
-    fullnameInput.addEventListener('blur', revealFirma);
-    fullnameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); revealFirma(); } });
-    fullnameInput.addEventListener('input', evaluateStep4Enabled);
-    firmaInput.addEventListener('input', evaluateStep4Enabled);
 
     step4CTA.addEventListener('click', () => {
       const nameParts = fullnameInput.value.trim().split(/\s+/).filter(Boolean);
@@ -1989,9 +2025,6 @@
     // =====================================================
     // STEP 5 — Telefon + DSGVO + Final-Submit
     // =====================================================
-    const slide5 = slides.find(s => s.dataset.slide === '5');
-    const phoneInput      = slide5.querySelector('#phone');
-    const privacyCheckbox = slide5.querySelector('#privacy');
     const finalSubmit     = document.getElementById('quiz-final-submit');
     const step5Error      = document.getElementById('quiz-step5-error');
 
@@ -1999,8 +2032,6 @@
       const hasPhone = phoneInput.value.trim().length >= 6;
       finalSubmit.disabled = !(hasPhone && privacyCheckbox.checked);
     }
-    phoneInput.addEventListener('input', evaluateStep5Enabled);
-    privacyCheckbox.addEventListener('change', evaluateStep5Enabled);
 
     finalSubmit.addEventListener('click', async () => {
       step5Error.classList.remove('active');
@@ -2094,10 +2125,6 @@
       }
     });
 
-    // Error-Border zurücksetzen bei Tipp-Korrektur
-    [emailInput, fullnameInput, firmaInput, phoneInput].forEach(el => {
-      el.addEventListener('input', () => el.classList.remove('is-error'));
-    });
 
     // =====================================================
     // STICKY MOBILE-CTA (Recovery)
