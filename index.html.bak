@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex">
-  <title>Recruiting-Report 2026 – Kostenlos f&uuml;r Stra&szlig;en- &amp; Tiefbau-Betriebe | GreyCareers</title>
+  <title>Recruiting-Report 2026 – Kostenlos f&uuml;r Stra&szlig;en- &amp; Tiefbau-Betriebe | GreenCareers</title>
   <meta name="description" content="Der kostenlose Recruiting-Report 2026 f&uuml;r Stra&szlig;en- und Tiefbau-Betriebe: Vakanzkosten, Time-to-Fill, Gehaltsbenchmarks und Recruiting-Strategien f&uuml;r Polier, Bauleiter und Tiefbauer.">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
   <link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
@@ -12,24 +12,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <!-- Meta Pixel Code -->
-  <script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '634469765867935');
-  fbq('track', 'PageView');
-  </script>
-  <noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=634469765867935&ev=PageView&noscript=1"/></noscript>
-  <!-- End Meta Pixel Code -->
-
   <script>
     var lpTurnstileToken = '';
     function onLpTurnstileSuccess(token) { lpTurnstileToken = token; }
@@ -642,192 +624,6 @@
       background: linear-gradient(180deg, var(--off-white) 0%, #e8e3d8 100%);
       position: relative;
     }
-    /* === QUIZ-FUNNEL CSS === */
-    .quiz-progress {
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
-      margin-bottom: 22px;
-    }
-    .quiz-progress-label {
-      font-size: 0.78rem; font-weight: 600; color: var(--earth);
-      letter-spacing: 0.02em;
-    }
-    .quiz-progress-bar {
-      width: 100%; max-width: 320px; height: 8px;
-      background: var(--warm-gray); border-radius: 50px; overflow: hidden;
-      position: relative;
-    }
-    .quiz-progress-fill {
-      position: absolute; top: 0; left: 0; bottom: 0;
-      background: var(--gradient-cta);
-      border-radius: 50px;
-      transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-      box-shadow: 0 0 12px rgba(0, 210, 97, 0.45);
-    }
-
-    .quiz-slide { display: none; animation: quizFadeIn 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
-    .quiz-slide.is-active { display: block; }
-    @keyframes quizFadeIn {
-      from { opacity: 0; transform: translateY(14px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .quiz-question {
-      font-size: 1.18rem; font-weight: 700; color: var(--moss-dark);
-      text-align: center; line-height: 1.35; margin-bottom: 6px;
-      letter-spacing: -0.01em;
-    }
-    @media (min-width: 720px) { .quiz-question { font-size: 1.32rem; } }
-    .quiz-subtext {
-      font-size: 0.86rem; color: var(--earth); text-align: center;
-      line-height: 1.55; margin-bottom: 22px;
-      max-width: 440px; margin-left: auto; margin-right: auto;
-    }
-    .quiz-subtext strong { color: var(--moss-dark); }
-    .quiz-perso { color: var(--lime-green); font-weight: 700; }
-
-    .quiz-options { display: flex; flex-direction: column; gap: 10px; max-width: 480px; margin: 0 auto; }
-    .quiz-option {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 12px;
-      width: 100%;
-      background: var(--white);
-      border: 2px solid #E4E2DC;
-      color: var(--moss-dark);
-      font-family: 'Poppins', sans-serif;
-      font-weight: 600; font-size: 0.94rem;
-      padding: 14px 18px;
-      border-radius: 14px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      text-align: left;
-      line-height: 1.35;
-      min-height: 54px;
-    }
-    .quiz-option-meta {
-      font-size: 0.74rem; font-weight: 500; color: var(--earth);
-      opacity: 0.85;
-    }
-    .quiz-option:hover {
-      border-color: var(--poison-green);
-      background: rgba(0, 210, 97, 0.06);
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(0, 210, 97, 0.12);
-    }
-    .quiz-option:active { transform: translateY(0); }
-    .quiz-option.is-selected {
-      border-color: var(--poison-green);
-      background: var(--gradient-cta);
-      color: var(--sand-ash);
-    }
-    .quiz-option.is-selected .quiz-option-meta { color: rgba(31,31,31,0.8); }
-
-    .quiz-input-group {
-      max-width: 460px; margin: 0 auto 14px;
-      display: flex; flex-direction: column; gap: 10px;
-      animation: quizFadeIn 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    .quiz-input-row { display: flex; gap: 10px; }
-    .quiz-input-row .quiz-input-wrap { flex: 1; }
-    .quiz-input-wrap { position: relative; }
-    .quiz-input-icon {
-      position: absolute; top: 50%; left: 14px; transform: translateY(-50%);
-      width: 18px; height: 18px;
-      color: var(--lime-green); opacity: 0.85;
-    }
-    .quiz-input {
-      width: 100%; padding: 14px 16px 14px 42px;
-      border: 2px solid #E4E2DC; border-radius: 12px;
-      font-family: 'Poppins', sans-serif; font-size: 0.95rem;
-      color: var(--moss-dark);
-      background: var(--white);
-      transition: all 0.2s ease;
-      min-height: 52px;
-    }
-    .quiz-input:focus {
-      outline: none;
-      border-color: var(--poison-green);
-      box-shadow: 0 0 0 4px rgba(0, 210, 97, 0.12);
-    }
-    .quiz-input.is-error {
-      border-color: #e53e3e;
-      box-shadow: 0 0 0 4px rgba(229, 62, 62, 0.10);
-    }
-    .quiz-input::placeholder { color: #9A9690; }
-
-    .quiz-cta {
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      width: 100%; max-width: 460px; margin: 14px auto 0;
-      background: var(--gradient-cta); color: var(--sand-ash);
-      font-family: 'Poppins', sans-serif; font-weight: 700;
-      font-size: 0.98rem; padding: 16px 22px;
-      border: none; border-radius: 50px;
-      cursor: pointer; transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-      box-shadow: 0 6px 22px rgba(0, 210, 97, 0.32);
-      min-height: 54px;
-    }
-    .quiz-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0, 210, 97, 0.45); }
-    .quiz-cta:disabled { opacity: 0.65; cursor: not-allowed; transform: none; box-shadow: none; }
-
-    .quiz-back {
-      display: inline-flex; align-items: center; gap: 4px;
-      background: none; border: none; cursor: pointer;
-      color: var(--earth); font-family: 'Poppins', sans-serif;
-      font-size: 0.78rem; font-weight: 500;
-      padding: 6px 8px; margin: 14px auto 0;
-      transition: color 0.2s ease;
-    }
-    .quiz-back:hover { color: var(--moss-dark); }
-
-    .quiz-privacy {
-      display: flex; gap: 10px; align-items: flex-start;
-      max-width: 460px; margin: 14px auto 0;
-      font-size: 0.72rem; color: var(--earth); line-height: 1.5;
-    }
-    .quiz-privacy input[type="checkbox"] {
-      width: 17px; height: 17px; flex-shrink: 0;
-      margin-top: 2px;
-      accent-color: var(--poison-green);
-    }
-    .quiz-privacy a { color: var(--lime-green); text-decoration: underline; }
-
-    .quiz-trust-row {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 14px;
-      margin-top: 18px;
-      font-size: 0.72rem; color: var(--earth);
-    }
-    .quiz-trust-row span { display: inline-flex; align-items: center; gap: 5px; }
-    .quiz-trust-row .quiz-trust-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--poison-green);
-      box-shadow: 0 0 6px rgba(0, 210, 97, 0.55);
-    }
-
-    .quiz-error-msg {
-      display: none; max-width: 460px; margin: 12px auto 0;
-      padding: 10px 14px; border-radius: 10px;
-      background: rgba(229, 62, 62, 0.08); color: #b62828;
-      font-size: 0.82rem; text-align: center;
-      border: 1px solid rgba(229, 62, 62, 0.2);
-    }
-    .quiz-error-msg.active { display: block; }
-
-    .quiz-phone-wrap { display: flex; align-items: center; gap: 0; }
-    .quiz-phone-flag {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: var(--white); border: 2px solid #E4E2DC; border-right: none;
-      padding: 14px 12px; border-radius: 12px 0 0 12px;
-      font-size: 0.88rem; font-weight: 600; color: var(--moss-dark);
-      min-height: 52px;
-    }
-    .quiz-phone-wrap .quiz-input {
-      border-radius: 0 12px 12px 0;
-      padding-left: 14px;
-    }
-
-    /* =====================================================
-       STICKY MOBILE-CTA (Recovery für User die am Quiz vorbeiscrollten)
-       ===================================================== */
-
     .form-wrapper {
       background: var(--white); border-radius: 22px; padding: 30px 22px;
       box-shadow: 0 16px 70px rgba(45,51,56,0.12);
@@ -1016,7 +812,7 @@
   <!-- NAV -->
   <nav id="navbar">
     <div class="container nav-inner">
-      <a href="/" class="nav-logo" aria-label="Zur&uuml;ck zum Seitenanfang">
+      <a href="https://www.green-careers.de" class="nav-logo" aria-label="GreenCareers">
         <img src="logo-white-sm.png" alt="GreenCareers">
       </a>
       <a href="#formular" class="nav-cta">Report sichern &rarr;</a>
@@ -1101,146 +897,6 @@
       </div>
     </div>
   </div>
-
-  <!-- FORM -->
-  <section class="section-form" id="formular">
-    <div class="container">
-      <div class="form-wrapper reveal-scale">
-
-        <!-- Quiz-Header -->
-        <div class="form-header" id="quiz-header">
-          <div class="section-label" style="justify-content:center;"><span class="section-label-line"></span> Recruiting-Report 2026</div>
-          <h2 id="quiz-h2">Kostenloser 32-Seiten-Report &mdash; in 60&nbsp;Sek. anfordern.</h2>
-          <p id="quiz-h2-sub">2 schnelle Fragen, dann erhalten Sie den Report per E-Mail. Keine Verpflichtung.</p>
-        </div>
-
-        <!-- Progress -->
-        <div class="quiz-progress" id="quiz-progress">
-          <div class="quiz-progress-label" id="quiz-progress-label">Schritt 1 von 5</div>
-          <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress-fill" style="width:20%"></div></div>
-        </div>
-
-        <div id="lead-form">
-
-          <!-- ===== STEP 1 / 5 — Position ===== -->
-          <div class="quiz-slide is-active" data-slide="1">
-            <h3 class="quiz-question">Welche Position suchen Sie aktuell?</h3>
-            <p class="quiz-subtext">Damit wir den Report mit den richtigen Benchmarks f&uuml;r Sie aufbereiten.</p>
-            <div class="quiz-options">
-              <button type="button" class="quiz-option" data-field="position" data-value="tiefbauer">Tiefbauer / Stra&szlig;enbauer</button>
-              <button type="button" class="quiz-option" data-field="position" data-value="polier">Polier</button>
-              <button type="button" class="quiz-option" data-field="position" data-value="bauleiter">Bauleiter Tiefbau</button>
-              <button type="button" class="quiz-option" data-field="position" data-value="kanalbauer">Kanal- &amp; Rohrleitungsbauer / Asphaltbauer</button>
-              <button type="button" class="quiz-option" data-field="position" data-value="mehrere">Mehrere Positionen gleichzeitig</button>
-            </div>
-          </div>
-
-          <!-- ===== STEP 2 / 5 — Mitarbeiterzahl ===== -->
-          <div class="quiz-slide" data-slide="2">
-            <h3 class="quiz-question">Wie viele Mitarbeiter besch&auml;ftigt Ihr Betrieb?</h3>
-            <p class="quiz-subtext">F&uuml;r passende Strategie-Empfehlungen je nach Betriebsgr&ouml;&szlig;e.</p>
-            <div class="quiz-options">
-              <button type="button" class="quiz-option" data-field="mitarbeiter_range" data-value="0-14">Bis 14 Mitarbeiter</button>
-              <button type="button" class="quiz-option" data-field="mitarbeiter_range" data-value="15-40">15&ndash;40 Mitarbeiter</button>
-              <button type="button" class="quiz-option" data-field="mitarbeiter_range" data-value="41-100">41&ndash;100 Mitarbeiter</button>
-              <button type="button" class="quiz-option" data-field="mitarbeiter_range" data-value="101-250">101&ndash;250 Mitarbeiter</button>
-              <button type="button" class="quiz-option" data-field="mitarbeiter_range" data-value="250+">&Uuml;ber 250 Mitarbeiter</button>
-            </div>
-            <button type="button" class="quiz-back" data-back="1">&larr; Zur&uuml;ck</button>
-          </div>
-
-          <!-- ===== STEP 3 / 5 — E-Mail-Gate ===== -->
-          <div class="quiz-slide" data-slide="3">
-            <h3 class="quiz-question" id="quiz-step3-headline">Sehr gut. Wohin senden wir Ihren Report?</h3>
-            <p class="quiz-subtext" id="quiz-step3-sub">Tragen Sie Ihre gesch&auml;ftliche E-Mail ein &mdash; der Report kommt innerhalb 5&nbsp;Min. in Ihr Postfach.</p>
-            <div data-tpl="tpl-fields-email"></div>
-            <button type="button" class="quiz-cta" data-next-from="3">Weiter &rarr;</button>
-            <div class="quiz-error-msg" id="quiz-step3-error">Bitte tragen Sie eine g&uuml;ltige E-Mail-Adresse ein.</div>
-            <button type="button" class="quiz-back" data-back="2">&larr; Zur&uuml;ck</button>
-          </div>
-
-          <!-- ===== STEP 4 / 5 — Name + (progressive) Firma ===== -->
-          <div class="quiz-slide" data-slide="4">
-            <h3 class="quiz-question">F&uuml;r welchen Betrieb erstellen wir den Report?</h3>
-            <p class="quiz-subtext">Damit wir den Report f&uuml;r Sie pers&ouml;nlich anpassen k&ouml;nnen.</p>
-
-            <!-- Sub-Step 4a: Name -->
-            <div data-tpl="tpl-fields-name"></div>
-
-            <button type="button" class="quiz-cta" id="quiz-step4-cta" disabled>Weiter &rarr;</button>
-            <div class="quiz-error-msg" id="quiz-step4-error">Bitte tragen Sie Vor-, Nachnamen und Firmennamen ein.</div>
-            <button type="button" class="quiz-back" data-back="3">&larr; Zur&uuml;ck</button>
-          </div>
-
-          <!-- ===== STEP 5 / 5 — Telefon + DSGVO + Submit ===== -->
-          <div class="quiz-slide" data-slide="5">
-            <h3 class="quiz-question">Letzter Schritt &mdash; Ihre Telefonnummer.</h3>
-            <p class="quiz-subtext">Damit unser Recruiting-Experte Sie nach dem Report kurz erreichen kann (kein Spam, kein Verkaufsanruf &mdash; nur falls Sie R&uuml;ckfragen haben).</p>
-
-            <div data-tpl="tpl-fields-phone"></div>
-
-            <button type="button" class="quiz-cta" id="quiz-final-submit" disabled>Report jetzt sichern &rarr;</button>
-            <div class="quiz-error-msg" id="quiz-step5-error">Bitte Telefonnummer eintragen und Datenschutz best&auml;tigen.</div>
-
-            <div class="quiz-trust-row">
-              <span><span class="quiz-trust-dot"></span> Sichere SSL-Verschl&uuml;sselung</span>
-              <span><span class="quiz-trust-dot"></span> DSGVO-konform</span>
-              <span><span class="quiz-trust-dot"></span> Kein Spam, kein Newsletter</span>
-            </div>
-            <button type="button" class="quiz-back" data-back="4">&larr; Zur&uuml;ck</button>
-          </div>
-
-        </div>
-
-        
-        <!-- Kontaktfeld-Templates: Inhalte sind inert, bis mountContactFields()
-             sie bei der ersten Quiz-Interaktion einsetzt (Meta-IAB-Autoscroll-Fix). -->
-        <template id="tpl-fields-email"><div class="quiz-input-group">
-              <div class="quiz-input-wrap">
-                <svg class="quiz-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                <input type="email" class="quiz-input" id="email" name="email" placeholder="ihre@firma.de" autocomplete="email" autocapitalize="none" spellcheck="false" inputmode="email">
-              </div>
-            </div></template>
-        <template id="tpl-fields-name"><div class="quiz-input-group" data-substep="name">
-              <div class="quiz-input-wrap">
-                <svg class="quiz-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                <input type="text" class="quiz-input" id="fullname" placeholder="Vor- und Nachname" autocomplete="name" autocapitalize="words" spellcheck="false">
-              </div>
-            </div>
-
-            <!-- Sub-Step 4b: Firma (initial hidden) -->
-            <div class="quiz-input-group" data-substep="firma" style="display:none;">
-              <div class="quiz-input-wrap">
-                <svg class="quiz-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg>
-                <input type="text" class="quiz-input" id="unternehmen" name="unternehmen" placeholder="z. B. Müller Tiefbau GmbH" autocomplete="organization" autocapitalize="words" spellcheck="false">
-              </div>
-            </div>
-
-            </template>
-        <template id="tpl-fields-phone"><div class="quiz-input-group">
-              <div class="quiz-phone-wrap">
-                <span class="quiz-phone-flag">🇩🇪 +49</span>
-                <input type="tel" class="quiz-input" id="phone" name="phone" placeholder="170 1234567" autocomplete="tel" inputmode="tel">
-              </div>
-            </div>
-
-            <div class="quiz-privacy">
-              <input type="checkbox" id="privacy" name="privacy">
-              <label for="privacy">Ich stimme der <a href="https://www.green-careers.de/datenschutz" target="_blank" rel="noopener">Datenschutzerkl&auml;rung</a> zu und bin einverstanden, von GreenCareers kontaktiert zu werden.</label>
-            </div>
-
-            </template>
-
-        <!-- Success-State -->
-        <div class="form-success" id="form-success">
-          <div class="form-success-icon">&#9989;</div>
-          <h3>Perfekt &ndash; Ihr Report ist unterwegs!</h3>
-          <p>Sie erhalten den Recruiting-Report 2026 in wenigen Minuten per E-Mail. Pr&uuml;fen Sie bitte auch Ihren Spam-Ordner.</p>
-          <p style="margin-top:16px;font-size:0.82rem;color:var(--lime-green);font-weight:700;">Unser Team meldet sich innerhalb der n&auml;chsten 24&ndash;48&nbsp;h kurz bei Ihnen, falls Sie R&uuml;ckfragen zum Report haben.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- PROBLEM -->
   <section class="section-problem">
@@ -1477,6 +1133,67 @@
     </div>
   </section>
 
+  <!-- FORM -->
+  <section class="section-form" id="formular">
+    <div class="container">
+      <div class="form-wrapper reveal-scale">
+        <div class="form-header">
+          <div class="section-label" style="justify-content:center;"><span class="section-label-line"></span> Jetzt sichern</div>
+          <h2>Recruiting-Report 2026 &ndash; kostenlos</h2>
+          <p>Tragen Sie Ihre Daten ein &ndash; Sie erhalten den Report in wenigen Minuten per WhatsApp und E-Mail.</p>
+        </div>
+
+        <form id="lead-form" novalidate autocomplete="on">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="vorname">Vorname *</label>
+              <input type="text" id="vorname" name="vorname" placeholder="z.B. Klaus" required autocomplete="given-name" autocapitalize="words" spellcheck="false">
+            </div>
+            <div class="form-group">
+              <label for="nachname">Nachname *</label>
+              <input type="text" id="nachname" name="nachname" placeholder="z.B. Bergmann" required autocomplete="family-name" autocapitalize="words" spellcheck="false">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="unternehmen">Unternehmensname *</label>
+            <input type="text" id="unternehmen" name="unternehmen" placeholder="z.B. Bergmann Tiefbau GmbH" required autocomplete="organization" autocapitalize="words" spellcheck="false">
+          </div>
+
+          <div class="form-group">
+            <label for="email">E-Mail-Adresse *</label>
+            <input type="email" id="email" name="email" placeholder="ihre@firma.de" required autocomplete="email" autocapitalize="none" spellcheck="false" inputmode="email">
+          </div>
+
+          <div class="form-group">
+            <label for="phone">WhatsApp-f&auml;hige Telefonnummer *</label>
+            <input type="tel" id="phone" name="phone" placeholder="+49 170 1234567" required autocomplete="tel" inputmode="tel">
+            <div class="form-hint-box">
+              <span class="form-hint-icon">&#128241;</span>
+              <span class="form-hint-text"><strong>Wichtig:</strong> Wir senden den Report direkt per WhatsApp. Bitte geben Sie eine Nummer an, auf der Sie WhatsApp nutzen &ndash; sonst k&ouml;nnen wir Ihnen den Report nicht zustellen.</span>
+            </div>
+          </div>
+
+          <div class="form-checkbox">
+            <input type="checkbox" id="privacy" name="privacy" required>
+            <label for="privacy">Ich akzeptiere die <a href="https://www.green-careers.de/datenschutz" target="_blank" rel="noopener">Datenschutzerkl&auml;rung</a> und bin einverstanden, Recruiting-Tipps von GreenCareers zu erhalten.</label>
+          </div>
+
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAADBMRHCv_JYxMJDl" data-callback="onLpTurnstileSuccess" data-theme="light" style="margin-top:14px;"></div>
+
+          <button type="submit" class="btn-submit" id="submit-btn">Report kostenlos erhalten &rarr;</button>
+          <div class="form-error-msg" id="form-error">Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt.</div>
+        </form>
+
+        <div class="form-success" id="form-success">
+          <div class="form-success-icon">&#9989;</div>
+          <h3>Perfekt &ndash; Ihr Report ist unterwegs!</h3>
+          <p>Sie erhalten den Recruiting-Report 2026 in wenigen Minuten per WhatsApp und E-Mail. Pr&uuml;fen Sie bitte auch Ihren Spam-Ordner.</p>
+          <p style="margin-top:16px;font-size:0.8rem;color:var(--lime-green);font-weight:600;">Haben Sie Fragen? Antworten Sie einfach auf die WhatsApp-Nachricht.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- FOOTER -->
   <footer>
@@ -1635,441 +1352,66 @@
     // Wait for fonts/images
     setTimeout(updateCarousel, 100);
 
-    // =====================================================
-    // QUIZ-FUNNEL ENGINE (5 Steps mit Lead-Qualifying)
-    // - Step-Tracking → /api/recruiting/funnel-event (1st-Party)
-    // - Meta Pixel Custom Events pro Step
-    // - Submit → Make-Webhook (gleicher Payload + Quiz-Felder)
-    // =====================================================
+    // ===== FORM SUBMIT mit Make-Webhook =====
+    const form = document.getElementById('lead-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const errorMsg = document.getElementById('form-error');
 
-    // Tracking-Konfiguration
-    const LANDINGPAGE_ID = 'recruiting-report-2026-tiefbau';
-    const FUNNEL_EVENT_ENDPOINT = 'https://gc-tracking-dashboard.vercel.app/api/recruiting/funnel-event';
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorMsg.classList.remove('active');
 
-    // Session-ID (UUID, persist in localStorage)
-    function uuidv4() {
-      if (window.crypto && window.crypto.randomUUID) return window.crypto.randomUUID();
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
-        const r = Math.random() * 16 | 0;
-        const v = c === 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
+      // Validate
+      const fields = ['vorname', 'nachname', 'unternehmen', 'email', 'phone'];
+      let valid = true;
+      fields.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el.value.trim()) { el.style.borderColor = '#e53e3e'; valid = false; }
+        else { el.style.borderColor = ''; }
       });
-    }
-    let sessionId;
-    try {
-      sessionId = localStorage.getItem('gc_quiz_session_' + LANDINGPAGE_ID);
-      if (!sessionId) {
-        sessionId = uuidv4();
-        localStorage.setItem('gc_quiz_session_' + LANDINGPAGE_ID, sessionId);
+      const emailEl = document.getElementById('email');
+      if (emailEl.value && !emailEl.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+        emailEl.style.borderColor = '#e53e3e'; valid = false;
       }
-    } catch(e) { sessionId = uuidv4(); }
+      if (!document.getElementById('privacy').checked) valid = false;
+      if (!valid) return;
 
-    // URL-Tracking-Parameter (mit localStorage-Persistenz f\u00fcr cross-page)
-    const urlParams = new URLSearchParams(window.location.search);
-    let trackingParams = {
-      utm_source:   urlParams.get('utm_source')   || '',
-      utm_medium:   urlParams.get('utm_medium')   || '',
-      utm_campaign: urlParams.get('utm_campaign') || '',
-      utm_content:  urlParams.get('utm_content')  || '',
-      utm_term:     urlParams.get('utm_term')     || '',
-      fbclid:       urlParams.get('fbclid')       || '',
-      gclid:        urlParams.get('gclid')        || ''
-    };
-    // Falls neue UTMs aus URL kommen \u2192 in localStorage persistieren
-    // Falls nicht \u2192 alte aus localStorage holen (z.B. wenn User per Direkt-Link reinkommt nach 1. Besuch)
-    try {
-      const hasFreshUtm = Object.values(trackingParams).some(v => v);
-      if (hasFreshUtm) {
-        localStorage.setItem('gc_tracking_' + LANDINGPAGE_ID, JSON.stringify(trackingParams));
-      } else {
-        const stored = localStorage.getItem('gc_tracking_' + LANDINGPAGE_ID);
-        if (stored) trackingParams = JSON.parse(stored);
-      }
-    } catch(e) {}
-
-    // Funnel-Event ans Dashboard (fire-and-forget)
-    function trackFunnelEvent(eventType, slideId) {
-      const body = {
-        session_id: sessionId,
-        event_type: eventType,
-        slide_id: slideId || null,
-        landingpage_id: LANDINGPAGE_ID,
-        ...trackingParams,
-        page_url: window.location.href,
-        referrer: document.referrer || '',
-        user_agent: navigator.userAgent
-      };
-      try {
-        fetch(FUNNEL_EVENT_ENDPOINT, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body),
-          keepalive: true,
-          credentials: 'omit'
-        }).catch(() => { /* tracking darf nie den Funnel brechen */ });
-      } catch(e) { /* silent */ }
-    }
-
-    function trackPixelEvent(name, params) {
-      try {
-        if (typeof fbq === 'function') {
-          fbq('trackCustom', name, params || {});
-        }
-      } catch(e) { /* silent */ }
-    }
-
-    // =====================================================
-    // META-EVENT-TRACKING (Pixel + CAPI mit Dedup)
-    //
-    // Drei Qualitätsstufen, je Person genau einmal:
-    //   Lead                 → E-Mail eingetragen (Step 3)
-    //   CompleteRegistration → Formular vollständig abgesendet
-    //   Schedule             → Beratungstermin angefragt (Danke-Seite)
-    //
-    // Pixel (Browser) und CAPI (Server, via Dashboard-Endpoint)
-    // teilen sich pro Event dieselbe event_id → Meta dedupliziert.
-    // =====================================================
-    const LEAD_EVENT_ENDPOINT = 'https://gc-tracking-dashboard.vercel.app/api/tracking/lead-event';
-
-    function getCookie(name) {
-      try {
-        const m = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
-        return m ? decodeURIComponent(m.pop()) : '';
-      } catch(e) { return ''; }
-    }
-    function getFbp() { return getCookie('_fbp'); }
-    function getFbc() {
-      const c = getCookie('_fbc');
-      if (c) return c;
-      // Fallback: aus fbclid rekonstruieren (Meta-Format fb.1.<ts>.<fbclid>)
-      if (trackingParams.fbclid) return 'fb.1.' + Date.now() + '.' + trackingParams.fbclid;
-      return '';
-    }
-
-    // Stabile event_id pro Stufe + Session (übersteht Reload → Meta dedupliziert)
-    function getEventId(stage) {
-      const key = 'gc_eid_' + stage + '_' + LANDINGPAGE_ID;
-      try {
-        let id = localStorage.getItem(key);
-        if (!id) {
-          id = uuidv4();
-          localStorage.setItem(key, id);
-        }
-        return id;
-      } catch(e) { return uuidv4(); }
-    }
-
-    // Server-Event ans Dashboard (sendet CAPI + legt/aktualisiert Lead in Supabase)
-    function sendLeadStageEvent(stage, eventId) {
-      const body = {
-        stage: stage,
-        event_id: eventId,
-        landingpage_id: LANDINGPAGE_ID,
-        session_id: sessionId,
-        email: answers.email,
-        vorname: answers.vorname || '',
-        nachname: answers.nachname || '',
-        unternehmen: answers.unternehmen || '',
-        phone: answers.phone || '',
-        position: answers.position || '',
-        mitarbeiter_range: answers.mitarbeiter_range || '',
-        ...trackingParams,
-        fbp: getFbp(),
-        fbc: getFbc(),
-        page_url: window.location.href,
-        referrer: document.referrer || '',
-        user_agent: navigator.userAgent
-      };
-      // Test-Support: ?tracking_debug=1 → Dry-Run (keine Writes/CAPI),
-      // ?test_capi=CODE → Events in Meta Test-Events-Tab
-      try {
-        const p = new URLSearchParams(window.location.search);
-        if (p.get('tracking_debug') === '1') body.dry_run = true;
-        if (p.get('test_capi')) body.test_event_code = p.get('test_capi');
-      } catch(e) {}
-      try {
-        fetch(LEAD_EVENT_ENDPOINT, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body),
-          keepalive: true,
-          credentials: 'omit'
-        }).catch(() => { /* Tracking darf den Funnel nie brechen */ });
-      } catch(e) { /* silent */ }
-    }
-
-    // LP-View beim Page-Load
-    trackFunnelEvent('lp_view', null);
-
-    // Quiz-Start-Tracking (alle CTA-Buttons, die zum #formular fuehren)
-    document.querySelectorAll('a[href="#formular"], #sticky-cta').forEach(function(el) {
-      el.addEventListener('click', function() {
-        trackPixelEvent('Quiz_Started', { landingpage: LANDINGPAGE_ID, cta_location: el.className || 'unknown' });
-      }, { once: false });
-    });
-
-    // =====================================================
-    // SLIDE-NAVIGATION
-    // =====================================================
-    const slides = Array.from(document.querySelectorAll('.quiz-slide'));
-    const TOTAL_SLIDES = 5;
-    const progressFill  = document.getElementById('quiz-progress-fill');
-    const progressLabel = document.getElementById('quiz-progress-label');
-
-    const answers = {
-      position: '',
-      mitarbeiter_range: '',
-      email: '',
-      vorname: '',
-      nachname: '',
-      unternehmen: '',
-      phone: ''
-    };
-
-    const trackedSlides = new Set();
-
-    function showSlide(slideNum) {
-      mountContactFields();
-      slides.forEach(s => s.classList.remove('is-active'));
-      const target = slides.find(s => s.dataset.slide === String(slideNum));
-      if (target) target.classList.add('is-active');
-
-      const pct = Math.round((slideNum / TOTAL_SLIDES) * 100);
-      progressFill.style.width = pct + '%';
-      progressLabel.textContent = 'Schritt ' + slideNum + ' von ' + TOTAL_SLIDES;
-
-      document.getElementById('formular').scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-      const trackKey = 'slide_' + slideNum;
-      if (!trackedSlides.has(trackKey)) {
-        trackedSlides.add(trackKey);
-        trackFunnelEvent('slide_view', String(slideNum));
-        trackPixelEvent('Quiz_Step_' + slideNum + '_Viewed', { landingpage: LANDINGPAGE_ID });
-      }
-    }
-
-    // Initial: Step 1 ist schon active per HTML, aber tracken
-    trackedSlides.add('slide_1');
-    trackFunnelEvent('slide_view', '1');
-    trackPixelEvent('Quiz_Step_1_Viewed', { landingpage: LANDINGPAGE_ID });
-
-    // =====================================================
-    // STEP 1+2 — Tap-Buttons (auto-advance)
-    // =====================================================
-    document.querySelectorAll('.quiz-option').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const field = btn.dataset.field;
-        const value = btn.dataset.value;
-        if (!field || !value) return;
-
-        btn.parentElement.querySelectorAll('.quiz-option').forEach(b => b.classList.remove('is-selected'));
-        btn.classList.add('is-selected');
-        answers[field] = value;
-
-        trackPixelEvent('Quiz_Step_Answered', {
-          landingpage: LANDINGPAGE_ID,
-          field: field,
-          value: value
-        });
-
-        setTimeout(() => {
-          const currentSlide = parseInt(btn.closest('.quiz-slide').dataset.slide, 10);
-          if (currentSlide >= 1 && currentSlide <= 2) {
-            const next = currentSlide + 1;
-            showSlide(next);
-            if (next === 3) personalizeStep3();
-          }
-        }, 220);
-      });
-    });
-
-    // =====================================================
-    // BACK-Buttons
-    // =====================================================
-    document.querySelectorAll('.quiz-back').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const target = parseInt(btn.dataset.back, 10);
-        if (!target) return;
-        showSlide(target);
-      });
-    });
-
-    // =====================================================
-    // STEP 3 — E-Mail mit Personalisierung
-    // =====================================================
-    function personalizeStep3() {
-      const headline = document.getElementById('quiz-step3-headline');
-      const positionMap = {
-        'tiefbauer':  'Tiefbauer / Straßenbauer',
-        'polier':     'Polier',
-        'bauleiter':  'Bauleiter Tiefbau',
-        'kanalbauer': 'Kanal- &amp; Rohrleitungsbauer',
-        'mehrere':    'Mehrere Positionen'
-      };
-      const sizeMap = {
-        '0-14':    'bis 14 MA',
-        '15-40':   '15&ndash;40 MA',
-        '41-100':  '41&ndash;100 MA',
-        '101-250': '101&ndash;250 MA',
-        '250+':    '250+ MA'
-      };
-      const pos  = positionMap[answers.position] || '';
-      const size = sizeMap[answers.mitarbeiter_range] || '';
-      if (pos && size) {
-        headline.innerHTML = 'Sehr gut. Ihr Report f&uuml;r <span class="quiz-perso">' + pos + '</span> bei <span class="quiz-perso">' + size + '</span> ist gleich da.';
-      }
-    }
-
-    // Kontaktfelder erst bei Quiz-Interaktion ins DOM — der Meta-In-App-
-    // Browser (Instagram/Facebook) erkennt sonst schon beim Laden das
-    // Kontaktformular und scrollt automatisch zum Quiz (Autofill-Angebot).
-    let fieldsMounted = false;
-    let emailInput, fullnameInput, firmaSubstep, firmaInput, phoneInput, privacyCheckbox;
-
-    function mountContactFields() {
-      if (fieldsMounted) return;
-      fieldsMounted = true;
-      document.querySelectorAll('[data-tpl]').forEach(slot => {
-        const tpl = document.getElementById(slot.dataset.tpl);
-        if (tpl) slot.appendChild(tpl.content.cloneNode(true));
-      });
-      emailInput      = document.getElementById('email');
-      const s4        = slides.find(s => s.dataset.slide === '4');
-      fullnameInput   = s4.querySelector('#fullname');
-      firmaSubstep    = s4.querySelector('[data-substep="firma"]');
-      firmaInput      = s4.querySelector('#unternehmen');
-      const s5        = slides.find(s => s.dataset.slide === '5');
-      phoneInput      = s5.querySelector('#phone');
-      privacyCheckbox = s5.querySelector('#privacy');
-
-      emailInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') { e.preventDefault(); step3CTA.click(); }
-      });
-      fullnameInput.addEventListener('blur', revealFirma);
-      fullnameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); revealFirma(); } });
-      fullnameInput.addEventListener('input', evaluateStep4Enabled);
-      firmaInput.addEventListener('input', evaluateStep4Enabled);
-      phoneInput.addEventListener('input', evaluateStep5Enabled);
-      privacyCheckbox.addEventListener('change', evaluateStep5Enabled);
-      [emailInput, fullnameInput, firmaInput, phoneInput].forEach(el => {
-        el.addEventListener('input', () => el.classList.remove('is-error'));
-      });
-    }
-
-    const step3Error  = document.getElementById('quiz-step3-error');
-    const step3CTA    = document.querySelector('[data-next-from="3"]');
-
-    step3CTA.addEventListener('click', () => {
-      const email = emailInput.value.trim();
-      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-      if (!valid) {
-        emailInput.classList.add('is-error');
-        step3Error.classList.add('active');
+      // Cloudflare Turnstile: Token muss vorhanden sein
+      if (!lpTurnstileToken) {
+        errorMsg.textContent = 'Bitte warten Sie kurz auf die Sicherheitspr\u00fcfung.';
+        errorMsg.classList.add('active');
         return;
       }
-      emailInput.classList.remove('is-error');
-      step3Error.classList.remove('active');
-      answers.email = email;
 
-      // Stufe 1: "Lead" — E-Mail liegt vor. Pixel + CAPI mit gemeinsamer
-      // event_id (Dedup). Lead landet sofort in Supabase (lead_stage=
-      // email_only); schließt die Person nicht ab, meldet der Dashboard-
-      // Cron sie nach 30 Min in Slack → Lenny ruft an.
-      if (!window.__gcLeadFired) {
-        window.__gcLeadFired = true;
-        const leadEventId = getEventId('lead');
-        try {
-          if (typeof fbq === 'function') {
-            fbq('track', 'Lead',
-              { content_name: 'Recruiting-Report E-Mail erhalten', landingpage: LANDINGPAGE_ID },
-              { eventID: leadEventId });
-          }
-        } catch(e) {}
-        sendLeadStageEvent('lead', leadEventId);
-      }
+      // Disable button
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Wird gesendet\u2026';
+      submitBtn.disabled = true;
 
-      showSlide(4);
-    });
-
-    // =====================================================
-    // STEP 4 — Name → progressive Firma → Continue zu Step 5
-    // =====================================================
-    const step4CTA        = document.getElementById('quiz-step4-cta');
-    const step4Error      = document.getElementById('quiz-step4-error');
-
-    function evaluateStep4Enabled() {
-      const hasName  = fullnameInput.value.trim().split(/\s+/).filter(Boolean).length >= 2;
-      const hasFirma = /[A-Za-zÄÖÜäöüß]/.test(firmaInput.value) && firmaInput.value.trim().split(/[\s\-]+/).filter(w => w.length >= 2).length >= 2;
-      step4CTA.disabled = !(hasName && hasFirma);
-    }
-
-    function revealFirma() {
-      const parts = fullnameInput.value.trim().split(/\s+/).filter(Boolean);
-      if (parts.length >= 2 && firmaSubstep.style.display === 'none') {
-        firmaSubstep.style.display = '';
-        setTimeout(() => firmaInput.focus(), 100);
-      }
-    }
-
-    step4CTA.addEventListener('click', () => {
-      const nameParts = fullnameInput.value.trim().split(/\s+/).filter(Boolean);
-      if (nameParts.length < 2) { fullnameInput.classList.add('is-error'); step4Error.classList.add('active'); return; }
-      if (!(/[A-Za-zÄÖÜäöüß]/.test(firmaInput.value) && firmaInput.value.trim().split(/[\s\-]+/).filter(w => w.length >= 2).length >= 2)) { firmaInput.classList.add('is-error'); step4Error.classList.add('active'); return; }
-      step4Error.classList.remove('active');
-      answers.vorname     = nameParts[0];
-      answers.nachname    = nameParts.slice(1).join(' ');
-      answers.unternehmen = firmaInput.value.trim();
-      showSlide(5);
-    });
-
-    // =====================================================
-    // STEP 5 — Telefon + DSGVO + Final-Submit
-    // =====================================================
-    const finalSubmit     = document.getElementById('quiz-final-submit');
-    const step5Error      = document.getElementById('quiz-step5-error');
-
-    function evaluateStep5Enabled() {
-      const hasPhone = phoneInput.value.trim().length >= 6;
-      finalSubmit.disabled = !(hasPhone && privacyCheckbox.checked);
-    }
-
-    finalSubmit.addEventListener('click', async () => {
-      step5Error.classList.remove('active');
-
-      if (phoneInput.value.trim().length < 6) { phoneInput.classList.add('is-error'); step5Error.classList.add('active'); return; }
-      if (!privacyCheckbox.checked) { step5Error.classList.add('active'); return; }
-
-      let digits = phoneInput.value.replace(/\D/g, '');
-      if (digits.startsWith('00')) digits = digits.slice(2);
-      else if (digits.startsWith('0')) digits = '49' + digits.slice(1);
-      else if (!digits.startsWith('49')) digits = '49' + digits;
-      let phone = '+' + digits;
-      answers.phone = phone;
-
-      const originalText = finalSubmit.textContent;
-      finalSubmit.textContent = 'Wird gesendet…';
-      finalSubmit.disabled = true;
-
+      // Build payload
       const payload = {
-        // Standard-Felder
-        vorname: answers.vorname,
-        nachname: answers.nachname,
-        unternehmen: answers.unternehmen,
-        email: answers.email,
-        phone: answers.phone,
-        // Quiz-Antworten
-        position: answers.position,
-        mitarbeiter_range: answers.mitarbeiter_range,
-        // Metadata
-        source: LANDINGPAGE_ID,
-        landingpage_id: LANDINGPAGE_ID,
-        session_id: sessionId,
-        ...trackingParams,
+        vorname: document.getElementById('vorname').value.trim(),
+        nachname: document.getElementById('nachname').value.trim(),
+        unternehmen: document.getElementById('unternehmen').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        source: 'lp-recruiting-report-2026-tiefbau',
         timestamp: new Date().toISOString(),
         page_url: window.location.href,
-        referrer: document.referrer || '',
-        user_agent: navigator.userAgent
+        user_agent: navigator.userAgent,
+        'cf-turnstile-response': lpTurnstileToken
       };
+
+      // Daten f\u00fcr Download-Seite speichern (Prefill Termin-Formular)
+      try {
+        localStorage.setItem('gc_lead_data', JSON.stringify({
+          vorname: payload.vorname,
+          nachname: payload.nachname,
+          unternehmen: payload.unternehmen,
+          email: payload.email,
+          phone: payload.phone
+        }));
+      } catch(e) { /* localStorage blockiert (z.B. Inkognito), egal */ }
 
       try {
         if (MAKE_WEBHOOK_URL && MAKE_WEBHOOK_URL !== 'HIER_MAKE_WEBHOOK_URL_EINTRAGEN') {
@@ -2080,84 +1422,27 @@
           });
           if (!response.ok) throw new Error('Webhook returned ' + response.status);
         } else {
+          // Webhook noch nicht konfiguriert – simuliere Erfolg
           console.warn('Make-Webhook noch nicht konfiguriert. Payload:', payload);
           await new Promise(r => setTimeout(r, 800));
         }
 
-        trackFunnelEvent('submit_success', null);
-
-        // Stufe 2: "CompleteRegistration" — Formular vollständig
-        // (E-Mail + Name + Firma + Telefon). Pixel + CAPI mit gemeinsamer
-        // event_id; Dashboard stuft die Lead-Zeile auf 'complete' hoch.
-        const crEventId = getEventId('complete_registration');
-        try {
-          if (typeof fbq === 'function') {
-            fbq('track', 'CompleteRegistration',
-              { content_name: 'Recruiting-Report angefordert', landingpage: LANDINGPAGE_ID },
-              { eventID: crEventId });
-          }
-        } catch(e) {}
-        sendLeadStageEvent('complete_registration', crEventId);
-
-        // Lead-Daten für Prefill des Termin-Formulars auf der
-        // Download-/Danke-Seite hinterlegen (gleiche Domain)
-        try {
-          localStorage.setItem('gc_lead_data_tiefbau', JSON.stringify({
-            vorname: answers.vorname,
-            nachname: answers.nachname,
-            unternehmen: answers.unternehmen,
-            email: answers.email,
-            phone: answers.phone
-          }));
-        } catch(e) {}
-
-        document.getElementById('lead-form').style.display = 'none';
-        document.getElementById('quiz-progress').style.display = 'none';
-        document.getElementById('quiz-header').style.display = 'none';
+        // Success state
+        form.style.display = 'none';
+        document.querySelector('.form-header').style.display = 'none';
         document.getElementById('form-success').classList.add('active');
+        lpTurnstileToken = '';
       } catch (err) {
         console.error('Form submit error:', err);
-        trackFunnelEvent('submit_failed', null);
-        step5Error.textContent = 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.';
-        step5Error.classList.add('active');
-        finalSubmit.textContent = originalText;
-        finalSubmit.disabled = false;
+        errorMsg.textContent = 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.';
+        errorMsg.classList.add('active');
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        // Turnstile-Widget zur\u00fccksetzen, damit der User es neu l\u00f6sen kann
+        lpTurnstileToken = '';
+        if (window.turnstile) { try { window.turnstile.reset(); } catch(e) {} }
       }
     });
-
-
-    // =====================================================
-    // STICKY MOBILE-CTA (Recovery)
-    // =====================================================
-    const stickyCta = document.getElementById('sticky-cta');
-    const formularEl = document.getElementById('formular');
-    if (stickyCta && formularEl) {
-      function refreshStickyCta() {
-        const r = formularEl.getBoundingClientRect();
-        stickyCta.classList.toggle('is-visible', r.bottom < 0);
-      }
-      const formObserver = new IntersectionObserver(refreshStickyCta, { threshold: [0, 0.01] });
-      formObserver.observe(formularEl);
-      let stickyTicking = false;
-      window.addEventListener('scroll', () => {
-        if (!stickyTicking) {
-          requestAnimationFrame(() => {
-            refreshStickyCta();
-            stickyTicking = false;
-          });
-          stickyTicking = true;
-        }
-      }, { passive: true });
-      refreshStickyCta();
-
-      stickyCta.addEventListener('click', () => {
-        try {
-          if (typeof fbq === 'function') {
-            fbq('trackCustom', 'Sticky_CTA_Clicked', { landingpage: LANDINGPAGE_ID });
-          }
-        } catch(e) {}
-      });
-    }
   </script>
 </body>
 </html>

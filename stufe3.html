@@ -1149,7 +1149,14 @@
             <button type="button" class="quiz-back" data-back="1">&larr; Zur&uuml;ck</button>
           </div>
 
-          <!-- ===== STEP 3 / 5 — E-Mail-Gate ===== -->
+          
+
+        </div>
+
+        
+        <!-- Kontaktfeld-Templates: Inhalte sind inert, bis mountContactFields()
+             sie bei der ersten Quiz-Interaktion einsetzt (Meta-IAB-Autoscroll-Fix). -->
+        <template id="tpl-slides-345"><!-- ===== STEP 3 / 5 — E-Mail-Gate ===== -->
           <div class="quiz-slide" data-slide="3">
             <h3 class="quiz-question" id="quiz-step3-headline">Sehr gut. Wohin senden wir Ihren Report?</h3>
             <p class="quiz-subtext" id="quiz-step3-sub">Tragen Sie Ihre gesch&auml;ftliche E-Mail ein &mdash; der Report kommt innerhalb 5&nbsp;Min. in Ihr Postfach.</p>
@@ -1188,13 +1195,7 @@
               <span><span class="quiz-trust-dot"></span> Kein Spam, kein Newsletter</span>
             </div>
             <button type="button" class="quiz-back" data-back="4">&larr; Zur&uuml;ck</button>
-          </div>
-
-        </div>
-
-        
-        <!-- Kontaktfeld-Templates: Inhalte sind inert, bis mountContactFields()
-             sie bei der ersten Quiz-Interaktion einsetzt (Meta-IAB-Autoscroll-Fix). -->
+          </div></template>
         <template id="tpl-fields-email"><div class="quiz-input-group">
               <div class="quiz-input-wrap">
                 <svg class="quiz-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -1884,17 +1885,6 @@
     });
 
     // =====================================================
-    // BACK-Buttons
-    // =====================================================
-    document.querySelectorAll('.quiz-back').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const target = parseInt(btn.dataset.back, 10);
-        if (!target) return;
-        showSlide(target);
-      });
-    });
-
-    // =====================================================
     // STEP 3 — E-Mail mit Personalisierung
     // =====================================================
     function personalizeStep3() {
@@ -1929,6 +1919,9 @@
     function mountContactFields() {
       if (fieldsMounted) return;
       fieldsMounted = true;
+      const leadFormEl = document.getElementById('lead-form');
+      leadFormEl.appendChild(document.getElementById('tpl-slides-345').content.cloneNode(true));
+      leadFormEl.querySelectorAll('.quiz-slide').forEach(s => { if (!slides.includes(s)) slides.push(s); });
       document.querySelectorAll('[data-tpl]').forEach(slot => {
         const tpl = document.getElementById(slot.dataset.tpl);
         if (tpl) slot.appendChild(tpl.content.cloneNode(true));
@@ -1954,177 +1947,190 @@
       [emailInput, fullnameInput, firmaInput, phoneInput].forEach(el => {
         el.addEventListener('input', () => el.classList.remove('is-error'));
       });
-    }
+    
+      // =====================================================
+      // BACK-Buttons
+      // =====================================================
+      document.querySelectorAll('.quiz-back').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const target = parseInt(btn.dataset.back, 10);
+          if (!target) return;
+          showSlide(target);
+        });
+      });
 
-    const step3Error  = document.getElementById('quiz-step3-error');
-    const step3CTA    = document.querySelector('[data-next-from="3"]');
 
-    step3CTA.addEventListener('click', () => {
-      const email = emailInput.value.trim();
-      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-      if (!valid) {
-        emailInput.classList.add('is-error');
-        step3Error.classList.add('active');
-        return;
-      }
-      emailInput.classList.remove('is-error');
-      step3Error.classList.remove('active');
-      answers.email = email;
+      const step3Error  = document.getElementById('quiz-step3-error');
+      const step3CTA    = document.querySelector('[data-next-from="3"]');
 
-      // Stufe 1: "Lead" — E-Mail liegt vor. Pixel + CAPI mit gemeinsamer
-      // event_id (Dedup). Lead landet sofort in Supabase (lead_stage=
-      // email_only); schließt die Person nicht ab, meldet der Dashboard-
-      // Cron sie nach 30 Min in Slack → Lenny ruft an.
-      if (!window.__gcLeadFired) {
-        window.__gcLeadFired = true;
-        const leadEventId = getEventId('lead');
-        try {
-          if (typeof fbq === 'function') {
-            fbq('track', 'Lead',
-              { content_name: 'Recruiting-Report E-Mail erhalten', landingpage: LANDINGPAGE_ID },
-              { eventID: leadEventId });
-          }
-        } catch(e) {}
-        sendLeadStageEvent('lead', leadEventId);
-      }
+      step3CTA.addEventListener('click', () => {
+        const email = emailInput.value.trim();
+        const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        if (!valid) {
+          emailInput.classList.add('is-error');
+          step3Error.classList.add('active');
+          return;
+        }
+        emailInput.classList.remove('is-error');
+        step3Error.classList.remove('active');
+        answers.email = email;
 
-      showSlide(4);
-    });
-
-    // =====================================================
-    // STEP 4 — Name → progressive Firma → Continue zu Step 5
-    // =====================================================
-    const step4CTA        = document.getElementById('quiz-step4-cta');
-    const step4Error      = document.getElementById('quiz-step4-error');
-
-    function evaluateStep4Enabled() {
-      const hasName  = fullnameInput.value.trim().split(/\s+/).filter(Boolean).length >= 2;
-      const hasFirma = /[A-Za-zÄÖÜäöüß]/.test(firmaInput.value) && firmaInput.value.trim().split(/[\s\-]+/).filter(w => w.length >= 2).length >= 2;
-      step4CTA.disabled = !(hasName && hasFirma);
-    }
-
-    function revealFirma() {
-      const parts = fullnameInput.value.trim().split(/\s+/).filter(Boolean);
-      if (parts.length >= 2 && firmaSubstep.style.display === 'none') {
-        firmaSubstep.style.display = '';
-        setTimeout(() => firmaInput.focus(), 100);
-      }
-    }
-
-    step4CTA.addEventListener('click', () => {
-      const nameParts = fullnameInput.value.trim().split(/\s+/).filter(Boolean);
-      if (nameParts.length < 2) { fullnameInput.classList.add('is-error'); step4Error.classList.add('active'); return; }
-      if (!(/[A-Za-zÄÖÜäöüß]/.test(firmaInput.value) && firmaInput.value.trim().split(/[\s\-]+/).filter(w => w.length >= 2).length >= 2)) { firmaInput.classList.add('is-error'); step4Error.classList.add('active'); return; }
-      step4Error.classList.remove('active');
-      answers.vorname     = nameParts[0];
-      answers.nachname    = nameParts.slice(1).join(' ');
-      answers.unternehmen = firmaInput.value.trim();
-      showSlide(5);
-    });
-
-    // =====================================================
-    // STEP 5 — Telefon + DSGVO + Final-Submit
-    // =====================================================
-    const finalSubmit     = document.getElementById('quiz-final-submit');
-    const step5Error      = document.getElementById('quiz-step5-error');
-
-    function evaluateStep5Enabled() {
-      const hasPhone = phoneInput.value.trim().length >= 6;
-      finalSubmit.disabled = !(hasPhone && privacyCheckbox.checked);
-    }
-
-    finalSubmit.addEventListener('click', async () => {
-      step5Error.classList.remove('active');
-
-      if (phoneInput.value.trim().length < 6) { phoneInput.classList.add('is-error'); step5Error.classList.add('active'); return; }
-      if (!privacyCheckbox.checked) { step5Error.classList.add('active'); return; }
-
-      let digits = phoneInput.value.replace(/\D/g, '');
-      if (digits.startsWith('00')) digits = digits.slice(2);
-      else if (digits.startsWith('0')) digits = '49' + digits.slice(1);
-      else if (!digits.startsWith('49')) digits = '49' + digits;
-      let phone = '+' + digits;
-      answers.phone = phone;
-
-      const originalText = finalSubmit.textContent;
-      finalSubmit.textContent = 'Wird gesendet…';
-      finalSubmit.disabled = true;
-
-      const payload = {
-        // Standard-Felder
-        vorname: answers.vorname,
-        nachname: answers.nachname,
-        unternehmen: answers.unternehmen,
-        email: answers.email,
-        phone: answers.phone,
-        // Quiz-Antworten
-        position: answers.position,
-        mitarbeiter_range: answers.mitarbeiter_range,
-        // Metadata
-        source: LANDINGPAGE_ID,
-        landingpage_id: LANDINGPAGE_ID,
-        session_id: sessionId,
-        ...trackingParams,
-        timestamp: new Date().toISOString(),
-        page_url: window.location.href,
-        referrer: document.referrer || '',
-        user_agent: navigator.userAgent
-      };
-
-      try {
-        if (MAKE_WEBHOOK_URL && MAKE_WEBHOOK_URL !== 'HIER_MAKE_WEBHOOK_URL_EINTRAGEN') {
-          const response = await fetch(MAKE_WEBHOOK_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          });
-          if (!response.ok) throw new Error('Webhook returned ' + response.status);
-        } else {
-          console.warn('Make-Webhook noch nicht konfiguriert. Payload:', payload);
-          await new Promise(r => setTimeout(r, 800));
+        // Stufe 1: "Lead" — E-Mail liegt vor. Pixel + CAPI mit gemeinsamer
+        // event_id (Dedup). Lead landet sofort in Supabase (lead_stage=
+        // email_only); schließt die Person nicht ab, meldet der Dashboard-
+        // Cron sie nach 30 Min in Slack → Lenny ruft an.
+        if (!window.__gcLeadFired) {
+          window.__gcLeadFired = true;
+          const leadEventId = getEventId('lead');
+          try {
+            if (typeof fbq === 'function') {
+              fbq('track', 'Lead',
+                { content_name: 'Recruiting-Report E-Mail erhalten', landingpage: LANDINGPAGE_ID },
+                { eventID: leadEventId });
+            }
+          } catch(e) {}
+          sendLeadStageEvent('lead', leadEventId);
         }
 
-        trackFunnelEvent('submit_success', null);
+        showSlide(4);
+      });
 
-        // Stufe 2: "CompleteRegistration" — Formular vollständig
-        // (E-Mail + Name + Firma + Telefon). Pixel + CAPI mit gemeinsamer
-        // event_id; Dashboard stuft die Lead-Zeile auf 'complete' hoch.
-        const crEventId = getEventId('complete_registration');
-        try {
-          if (typeof fbq === 'function') {
-            fbq('track', 'CompleteRegistration',
-              { content_name: 'Recruiting-Report angefordert', landingpage: LANDINGPAGE_ID },
-              { eventID: crEventId });
-          }
-        } catch(e) {}
-        sendLeadStageEvent('complete_registration', crEventId);
+      // =====================================================
+      // STEP 4 — Name → progressive Firma → Continue zu Step 5
+      // =====================================================
+      const step4CTA        = document.getElementById('quiz-step4-cta');
+      const step4Error      = document.getElementById('quiz-step4-error');
 
-        // Lead-Daten für Prefill des Termin-Formulars auf der
-        // Download-/Danke-Seite hinterlegen (gleiche Domain)
-        try {
-          localStorage.setItem('gc_lead_data_tiefbau', JSON.stringify({
-            vorname: answers.vorname,
-            nachname: answers.nachname,
-            unternehmen: answers.unternehmen,
-            email: answers.email,
-            phone: answers.phone
-          }));
-        } catch(e) {}
-
-        document.getElementById('lead-form').style.display = 'none';
-        document.getElementById('quiz-progress').style.display = 'none';
-        document.getElementById('quiz-header').style.display = 'none';
-        document.getElementById('form-success').classList.add('active');
-      } catch (err) {
-        console.error('Form submit error:', err);
-        trackFunnelEvent('submit_failed', null);
-        step5Error.textContent = 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.';
-        step5Error.classList.add('active');
-        finalSubmit.textContent = originalText;
-        finalSubmit.disabled = false;
+      function evaluateStep4Enabled() {
+        const hasName  = fullnameInput.value.trim().split(/\s+/).filter(Boolean).length >= 2;
+        const hasFirma = /[A-Za-zÄÖÜäöüß]/.test(firmaInput.value) && firmaInput.value.trim().split(/[\s\-]+/).filter(w => w.length >= 2).length >= 2;
+        step4CTA.disabled = !(hasName && hasFirma);
       }
-    });
 
+      function revealFirma() {
+        const parts = fullnameInput.value.trim().split(/\s+/).filter(Boolean);
+        if (parts.length >= 2 && firmaSubstep.style.display === 'none') {
+          firmaSubstep.style.display = '';
+          setTimeout(() => firmaInput.focus(), 100);
+        }
+      }
+
+      step4CTA.addEventListener('click', () => {
+        const nameParts = fullnameInput.value.trim().split(/\s+/).filter(Boolean);
+        if (nameParts.length < 2) { fullnameInput.classList.add('is-error'); step4Error.classList.add('active'); return; }
+        if (!(/[A-Za-zÄÖÜäöüß]/.test(firmaInput.value) && firmaInput.value.trim().split(/[\s\-]+/).filter(w => w.length >= 2).length >= 2)) { firmaInput.classList.add('is-error'); step4Error.classList.add('active'); return; }
+        step4Error.classList.remove('active');
+        answers.vorname     = nameParts[0];
+        answers.nachname    = nameParts.slice(1).join(' ');
+        answers.unternehmen = firmaInput.value.trim();
+        showSlide(5);
+      });
+
+      // =====================================================
+      // STEP 5 — Telefon + DSGVO + Final-Submit
+      // =====================================================
+      const finalSubmit     = document.getElementById('quiz-final-submit');
+      const step5Error      = document.getElementById('quiz-step5-error');
+
+      function evaluateStep5Enabled() {
+        const hasPhone = phoneInput.value.trim().length >= 6;
+        finalSubmit.disabled = !(hasPhone && privacyCheckbox.checked);
+      }
+
+      finalSubmit.addEventListener('click', async () => {
+        step5Error.classList.remove('active');
+
+        if (phoneInput.value.trim().length < 6) { phoneInput.classList.add('is-error'); step5Error.classList.add('active'); return; }
+        if (!privacyCheckbox.checked) { step5Error.classList.add('active'); return; }
+
+        let digits = phoneInput.value.replace(/\D/g, '');
+        if (digits.startsWith('00')) digits = digits.slice(2);
+        else if (digits.startsWith('0')) digits = '49' + digits.slice(1);
+        else if (!digits.startsWith('49')) digits = '49' + digits;
+        let phone = '+' + digits;
+        answers.phone = phone;
+
+        const originalText = finalSubmit.textContent;
+        finalSubmit.textContent = 'Wird gesendet…';
+        finalSubmit.disabled = true;
+
+        const payload = {
+          // Standard-Felder
+          vorname: answers.vorname,
+          nachname: answers.nachname,
+          unternehmen: answers.unternehmen,
+          email: answers.email,
+          phone: answers.phone,
+          // Quiz-Antworten
+          position: answers.position,
+          mitarbeiter_range: answers.mitarbeiter_range,
+          // Metadata
+          source: LANDINGPAGE_ID,
+          landingpage_id: LANDINGPAGE_ID,
+          session_id: sessionId,
+          ...trackingParams,
+          timestamp: new Date().toISOString(),
+          page_url: window.location.href,
+          referrer: document.referrer || '',
+          user_agent: navigator.userAgent
+        };
+
+        try {
+          if (MAKE_WEBHOOK_URL && MAKE_WEBHOOK_URL !== 'HIER_MAKE_WEBHOOK_URL_EINTRAGEN') {
+            const response = await fetch(MAKE_WEBHOOK_URL, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+            if (!response.ok) throw new Error('Webhook returned ' + response.status);
+          } else {
+            console.warn('Make-Webhook noch nicht konfiguriert. Payload:', payload);
+            await new Promise(r => setTimeout(r, 800));
+          }
+
+          trackFunnelEvent('submit_success', null);
+
+          // Stufe 2: "CompleteRegistration" — Formular vollständig
+          // (E-Mail + Name + Firma + Telefon). Pixel + CAPI mit gemeinsamer
+          // event_id; Dashboard stuft die Lead-Zeile auf 'complete' hoch.
+          const crEventId = getEventId('complete_registration');
+          try {
+            if (typeof fbq === 'function') {
+              fbq('track', 'CompleteRegistration',
+                { content_name: 'Recruiting-Report angefordert', landingpage: LANDINGPAGE_ID },
+                { eventID: crEventId });
+            }
+          } catch(e) {}
+          sendLeadStageEvent('complete_registration', crEventId);
+
+          // Lead-Daten für Prefill des Termin-Formulars auf der
+          // Download-/Danke-Seite hinterlegen (gleiche Domain)
+          try {
+            localStorage.setItem('gc_lead_data_tiefbau', JSON.stringify({
+              vorname: answers.vorname,
+              nachname: answers.nachname,
+              unternehmen: answers.unternehmen,
+              email: answers.email,
+              phone: answers.phone
+            }));
+          } catch(e) {}
+
+          document.getElementById('lead-form').style.display = 'none';
+          document.getElementById('quiz-progress').style.display = 'none';
+          document.getElementById('quiz-header').style.display = 'none';
+          document.getElementById('form-success').classList.add('active');
+        } catch (err) {
+          console.error('Form submit error:', err);
+          trackFunnelEvent('submit_failed', null);
+          step5Error.textContent = 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.';
+          step5Error.classList.add('active');
+          finalSubmit.textContent = originalText;
+          finalSubmit.disabled = false;
+        }
+      });
+
+
+    }
 
     // =====================================================
     // STICKY MOBILE-CTA (Recovery)
